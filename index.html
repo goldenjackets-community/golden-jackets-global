@@ -68,8 +68,6 @@ footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; bord
   <div class="stat"><div class="num">49</div><div class="label">Members</div></div>
   <div class="stat"><div class="num">570+</div><div class="label">Certifications</div></div>
   <div class="stat"><div class="num">5</div><div class="label">Countries</div></div>
-  <div class="stat"><div class="num">3,005</div><div class="label">Visits</div></div>
-  <div class="stat"><div class="num">792</div><div class="label">Unique Visitors</div></div>
 </div>
 
 <div class="map-section">
@@ -326,7 +324,22 @@ countries.forEach(function(c){
   </div>
 </div>
 
-<footer>Golden Jackets Community · Global Dashboard · Founder & Global Lead: Ricardo Gulias · 2026</footer>
+<footer>
+  <p style="margin-bottom:12px;color:#FFD700;">👁️ <span id="visits">-</span> visits · 👤 <span id="unique">-</span> unique visitors</p>
+  Golden Jackets Community · Global Dashboard · Founder & Global Lead: Ricardo Gulias · 2026
+</footer>
+
+<script>
+(function(){
+  var urls=['https://97i05orlfa.execute-api.us-east-1.amazonaws.com/count','https://nbq6a7chqg5qmze54snjlxv7sq0kzkyh.lambda-url.us-east-1.on.aws/','https://px4cb7kdzjgecw35dtlum4hb540vwivi.lambda-url.us-east-1.on.aws/'];
+  Promise.all(urls.map(function(u){return fetch(u).then(function(r){return r.json()}).catch(function(){return{total_visits:0,unique_visitors:0}})})).then(function(results){
+    var v=0,u=0;
+    results.forEach(function(d){v+=d.total_visits||0;u+=d.unique_visitors||0});
+    document.getElementById('visits').textContent=v.toLocaleString();
+    document.getElementById('unique').textContent=u.toLocaleString();
+  });
+})();
+</script>
 
 </body>
 </html>
