@@ -12,7 +12,10 @@
       "lead": "Ricardo Gulias",
       "founded": "2024",
       "status": "active",
-      "pin": {"top": "54%", "left": "35%"}
+      "pin": {
+        "top": "54%",
+        "left": "35%"
+      }
     },
     {
       "id": "poland",
@@ -26,7 +29,10 @@
       "lead": "Dawid Drabek",
       "founded": "May 2026",
       "status": "active",
-      "pin": {"top": "17%", "left": "55%"}
+      "pin": {
+        "top": "17%",
+        "left": "55%"
+      }
     },
     {
       "id": "uk",
@@ -40,7 +46,10 @@
       "lead": "Daniel Gaina",
       "founded": "May 2026",
       "status": "active",
-      "pin": {"top": "16%", "left": "49%"}
+      "pin": {
+        "top": "16%",
+        "left": "49%"
+      }
     },
     {
       "id": "usa",
@@ -54,7 +63,10 @@
       "lead": "Noor Sabahi",
       "founded": "",
       "status": "onboarding",
-      "pin": {"top": "25%", "left": "22%"}
+      "pin": {
+        "top": "25%",
+        "left": "22%"
+      }
     },
     {
       "id": "france",
@@ -68,7 +80,10 @@
       "lead": "Bangaly KABA",
       "founded": "",
       "status": "onboarding",
-      "pin": {"top": "20%", "left": "50%"}
+      "pin": {
+        "top": "20%",
+        "left": "50%"
+      }
     }
   ],
   "stats": {
@@ -77,5 +92,5 @@
     "active_chapters": 3,
     "countries": 5
   },
-  "last_updated": ""
+  "last_updated": "2026-05-18T11:14:58Z"
 }
