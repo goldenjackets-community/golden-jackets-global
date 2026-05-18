@@ -15,34 +15,31 @@ nav .links a:hover { color: #FFD700; }
 .stat { text-align: center; }
 .stat .num { font-size: 2.5em; font-weight: 800; color: #FFD700; }
 .stat .label { font-size: 0.8em; color: #888; margin-top: 4px; }
-.map-section { text-align: center; padding: 20px; }
-.map-section h2 { color: #FFD700; font-size: 1em; margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; }
-.map-wrapper { display: inline-block; position: relative; max-width: 900px; width: 100%; }
-.map-wrapper img { width: 100%; height: auto; opacity: 0.3; filter: grayscale(1); }
-.pin { position: absolute; width: 20px; height: 20px; transform: translate(-50%, -50%); cursor: pointer; }
-.pin::before { content: ''; position: absolute; width: 14px; height: 14px; background: #FFD700; border-radius: 50%; top: 3px; left: 3px; box-shadow: 0 0 12px rgba(255,215,0,0.6); animation: pulse 2s infinite; }
-.pin::after { content: attr(data-label); position: absolute; top: 22px; left: 50%; transform: translateX(-50%); font-size: 0.65em; color: #FFD700; font-weight: 700; white-space: nowrap; }
-@keyframes pulse { 0%,100% { box-shadow: 0 0 8px rgba(255,215,0,0.4); } 50% { box-shadow: 0 0 20px rgba(255,215,0,0.8); } }
-.pin.planned::before { background: #555; box-shadow: 0 0 8px rgba(85,85,85,0.4); animation: none; }
-.pin.planned::after { color: #555; }
-.chapters-list { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+.map-section { text-align: center; padding: 20px 30px; }
+.map-section h2 { color: #FFD700; font-size: 1em; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; }
+.map-wrapper { position: relative; max-width: 900px; margin: 0 auto; aspect-ratio: 2/1; border-radius: 16px; overflow: hidden; border: 1px solid #1a1a35; background: #0d0d1a; }
+.map-wrapper iframe { width: 100%; height: 100%; border: none; pointer-events: none; filter: invert(1) hue-rotate(180deg) saturate(0.3) brightness(0.4); }
+.pin { position: absolute; cursor: pointer; text-align: center; transition: transform 0.3s; }
+.pin:hover { transform: scale(1.3); }
+.pin .dot { width: 16px; height: 16px; background: #FFD700; border-radius: 50%; margin: 0 auto; box-shadow: 0 0 12px rgba(255,215,0,0.6), 0 0 30px rgba(255,215,0,0.3); animation: pulse 2s infinite; }
+.pin .name { font-size: 0.7em; color: #FFD700; font-weight: 700; margin-top: 4px; white-space: nowrap; text-shadow: 0 0 5px #0a0a1a, 0 0 10px #0a0a1a; }
+.pin.planned .dot { background: #444; box-shadow: 0 0 8px rgba(68,68,68,0.4); animation: none; }
+.pin.planned .name { color: #555; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 8px rgba(255,215,0,0.4), 0 0 20px rgba(255,215,0,0.2); } 50% { box-shadow: 0 0 16px rgba(255,215,0,0.8), 0 0 40px rgba(255,215,0,0.4); } }
+.chapters-list { max-width: 800px; margin: 40px auto; padding: 0 20px; }
 .chapters-list h2 { color: #FFD700; font-size: 1.1em; margin-bottom: 16px; }
-.chapter-card { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: #111125; border: 1px solid #2a2a45; border-radius: 10px; margin-bottom: 12px; transition: all 0.3s; text-decoration: none; }
+.chapter-card { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: #111125; border: 1px solid #2a2a45; border-radius: 10px; margin-bottom: 12px; transition: all 0.3s; text-decoration: none; color: inherit; }
 .chapter-card:hover { border-color: rgba(255,215,0,0.4); transform: translateX(4px); }
 .chapter-card .flag { font-size: 2em; }
 .chapter-card .info { flex: 1; }
 .chapter-card .info h3 { color: #fff; font-size: 0.95em; margin-bottom: 3px; }
 .chapter-card .info p { color: #888; font-size: 0.8em; }
-.chapter-card .status { font-size: 0.7em; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
+.status { font-size: 0.7em; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
 .status-active { background: rgba(76,175,80,0.15); color: #4CAF50; }
 .status-onboarding { background: rgba(255,215,0,0.15); color: #FFD700; }
 .chapter-card .arrow { color: #FFD700; font-size: 1.2em; }
 footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; border-top: 1px solid #1a1a30; margin-top: 40px; }
-@media (max-width: 768px) {
-  .stats-row { gap: 25px; }
-  .stat .num { font-size: 1.8em; }
-  nav .links { display: none; }
-}
+@media (max-width: 768px) { .stats-row { gap: 25px; } .stat .num { font-size: 1.8em; } nav .links { display: none; } }
 </style>
 </head>
 <body>
@@ -66,14 +63,14 @@ footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; bord
 <div class="map-section">
   <h2>🌍 Chapters Around the World</h2>
   <div class="map-wrapper">
-    <svg viewBox="0 0 1000 500" style="width:100%;height:auto;"><rect width="1000" height="500" fill="#0d0d20"/><ellipse cx="500" cy="250" rx="450" ry="220" fill="none" stroke="#1a1a35" stroke-width="0.5"/><ellipse cx="500" cy="250" rx="350" ry="170" fill="none" stroke="#1a1a35" stroke-width="0.5"/><ellipse cx="500" cy="250" rx="250" ry="120" fill="none" stroke="#1a1a35" stroke-width="0.5"/><!-- Americas --><path d="M150,120 L180,110 L210,120 L240,115 L260,130 L270,150 L260,170 L250,190 L240,200 L220,195 L200,200 L180,190 L160,180 L140,160 L145,140Z" fill="#1a1a35" stroke="#2a2a45"/><!-- South America --><path d="M240,250 L270,240 L290,250 L300,270 L310,300 L300,340 L280,370 L260,380 L240,360 L230,330 L225,300 L230,270Z" fill="#1a1a35" stroke="#2a2a45"/><path d="M240,250 L270,240 L290,250 L300,270 L310,300 L300,340 L280,370 L260,380 L240,360 L230,330 L225,300 L230,270Z" fill="#2d4a1e" stroke="#FFD700" stroke-width="1.5" opacity="0.8"/><!-- Europe --><path d="M450,130 L520,120 L560,130 L570,150 L560,170 L530,175 L500,170 L470,165 L450,150Z" fill="#1a1a35" stroke="#2a2a45"/><!-- UK --><path d="M455,125 L462,118 L465,130 L462,140 L456,138Z" fill="#2d4a1e" stroke="#FFD700" stroke-width="1.5"/><!-- Poland --><path d="M520,130 L540,128 L550,135 L548,145 L535,148 L522,143Z" fill="#2d4a1e" stroke="#FFD700" stroke-width="1.5"/><!-- France --><path d="M470,148 L485,145 L492,155 L488,165 L475,163 L468,155Z" fill="#1a1a35" stroke="#555" stroke-dasharray="3 2"/><!-- Africa --><path d="M460,200 L520,190 L560,210 L570,250 L560,300 L530,330 L500,320 L470,290 L455,250 L450,220Z" fill="#1a1a35" stroke="#2a2a45"/><!-- Asia --><path d="M580,120 L700,110 L780,130 L800,170 L780,210 L720,230 L660,220 L600,190 L580,160Z" fill="#1a1a35" stroke="#2a2a45"/><!-- Australia --><path d="M750,310 L810,300 L840,320 L830,350 L800,360 L770,345 L755,330Z" fill="#1a1a35" stroke="#2a2a45"/><!-- USA --><path d="M150,150 L250,145 L265,160 L255,180 L220,185 L170,180 L145,165Z" fill="#1a1a35" stroke="#555" stroke-dasharray="3 2"/></svg>
-    <!-- Active pins -->
-    <div class="pin" style="top:62%;left:30%;" data-label="Brazil 🇧🇷" onclick="window.open('https://goldenjacketsbrazil.com')"></div>
-    <div class="pin" style="top:32%;left:52%;" data-label="Poland 🇵🇱" onclick="window.open('https://goldenjackets.pl')"></div>
-    <div class="pin" style="top:28%;left:47%;" data-label="UK 🇬🇧" onclick="window.open('https://goldenjackets.co.uk')"></div>
-    <!-- Planned pins -->
-    <div class="pin planned" style="top:35%;left:22%;" data-label="USA"></div>
-    <div class="pin planned" style="top:33%;left:49%;" data-label="France"></div>
+    <!-- Dark styled map background -->
+    <img src="https://cdn.jsdelivr.net/npm/world-map-svg@1.0.0/world.svg" style="width:100%;height:100%;object-fit:cover;opacity:0.2;filter:invert(1) brightness(0.5);" onerror="this.style.display='none'">
+    <!-- Pins -->
+    <div class="pin" style="top:60%;left:30%;" onclick="window.open('https://goldenjacketsbrazil.com')"><div class="dot"></div><div class="name">🇧🇷 Brazil</div></div>
+    <div class="pin" style="top:30%;left:53%;" onclick="window.open('https://goldenjackets.pl')"><div class="dot"></div><div class="name">🇵🇱 Poland</div></div>
+    <div class="pin" style="top:25%;left:47%;" onclick="window.open('https://goldenjackets.co.uk')"><div class="dot"></div><div class="name">🇬🇧 UK</div></div>
+    <div class="pin planned" style="top:33%;left:20%;"><div class="dot"></div><div class="name">🇺🇸 USA</div></div>
+    <div class="pin planned" style="top:32%;left:49%;"><div class="dot"></div><div class="name">🇫🇷 France</div></div>
   </div>
 </div>
 
@@ -81,45 +78,30 @@ footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; bord
   <h2>All Chapters</h2>
   <a class="chapter-card" href="https://goldenjacketsbrazil.com" target="_blank">
     <div class="flag">🇧🇷</div>
-    <div class="info">
-      <h3>Golden Jackets Brazil</h3>
-      <p>35 members · 3 alumni · 8 challengers · Founded 2024</p>
-    </div>
+    <div class="info"><h3>Golden Jackets Brazil</h3><p>35 members · 3 alumni · 8 challengers · Founded 2024</p></div>
     <span class="status status-active">Active</span>
     <span class="arrow">→</span>
   </a>
   <a class="chapter-card" href="https://goldenjackets.pl" target="_blank">
     <div class="flag">🇵🇱</div>
-    <div class="info">
-      <h3>Golden Jackets Poland</h3>
-      <p>1 member · Chapter Lead: Dawid Drabek · Founded May 2026</p>
-    </div>
+    <div class="info"><h3>Golden Jackets Poland</h3><p>1 member · Chapter Lead: Dawid Drabek · Founded May 2026</p></div>
     <span class="status status-active">Active</span>
     <span class="arrow">→</span>
   </a>
   <a class="chapter-card" href="https://goldenjackets.co.uk" target="_blank">
     <div class="flag">🇬🇧</div>
-    <div class="info">
-      <h3>Golden Jackets UK</h3>
-      <p>1 member · Chapter Lead: Daniel Gaina · Founded May 2026</p>
-    </div>
+    <div class="info"><h3>Golden Jackets UK</h3><p>1 member · Chapter Lead: Daniel Gaina · Founded May 2026</p></div>
     <span class="status status-active">Active</span>
     <span class="arrow">→</span>
   </a>
   <div class="chapter-card" style="cursor:default;">
     <div class="flag">🇺🇸</div>
-    <div class="info">
-      <h3>Golden Jackets USA</h3>
-      <p>Chapter Lead: Noor Sabahi · Call scheduled</p>
-    </div>
+    <div class="info"><h3>Golden Jackets USA</h3><p>Chapter Lead: Noor Sabahi · Call scheduled</p></div>
     <span class="status status-onboarding">Onboarding</span>
   </div>
   <div class="chapter-card" style="cursor:default;">
     <div class="flag">🇫🇷</div>
-    <div class="info">
-      <h3>Golden Jackets France</h3>
-      <p>Chapter Lead: Bangaly KABA · Call scheduled</p>
-    </div>
+    <div class="info"><h3>Golden Jackets France</h3><p>Chapter Lead: Bangaly KABA · Call scheduled</p></div>
     <span class="status status-onboarding">Onboarding</span>
   </div>
 </div>
