@@ -64,8 +64,12 @@ footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; bord
   <h2>🌍 Chapters Around the World</h2>
   <div class="map-wrapper">
     <!-- Dark styled map background -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/BlankMap-World-Flattened.svg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.15;filter:invert(1);" crossorigin="anonymous" onerror="this.src='https://unpkg.com/@svg-maps/world/world.svg'">
+    <img id="worldmap" src="https://upload.wikimedia.org/wikipedia/commons/3/3d/BlankMap-World-Flattened.svg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.15;filter:invert(1);" crossorigin="anonymous" onerror="this.src='https://unpkg.com/@svg-maps/world/world.svg'">
     <!-- Pins -->
+    <!-- Country highlights -->
+    <div style="position:absolute;top:52%;left:22%;width:18%;height:30%;background:radial-gradient(ellipse,rgba(255,215,0,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+    <div style="position:absolute;top:28%;left:44%;width:6%;height:12%;background:radial-gradient(ellipse,rgba(255,215,0,0.15) 0%,transparent 70%);pointer-events:none;"></div>
+    <div style="position:absolute;top:30%;left:50%;width:6%;height:10%;background:radial-gradient(ellipse,rgba(255,215,0,0.15) 0%,transparent 70%);pointer-events:none;"></div>
     <div class="pin" style="top:72%;left:30%;" onclick="window.open('https://goldenjacketsbrazil.com')"><div class="dot">📍</div><div class="name">🇧🇷 Brazil</div></div>
     <div class="pin" style="top:43%;left:53%;" onclick="window.open('https://goldenjackets.pl')"><div class="dot">📍</div><div class="name">🇵🇱 Poland</div></div>
     <div class="pin" style="top:38%;left:47%;" onclick="window.open('https://goldenjackets.co.uk')"><div class="dot">📍</div><div class="name">🇬🇧 UK</div></div>
