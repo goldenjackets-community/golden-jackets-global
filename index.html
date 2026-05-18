@@ -42,10 +42,10 @@ nav .links a:hover { color: #FFD700; }
 footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; border-top: 1px solid #1a1a30; margin-top: 40px; }
 @media (max-width: 768px) { .stats-row { gap: 25px; } .stat .num { font-size: 1.8em; } nav .links { display: none; } }
 @keyframes blink { 0%,100% { opacity: 0.4; } 50% { opacity: 0.8; } }
-.ticker { overflow: hidden; margin: 0 auto; max-width: 65vw; height: 22px; }
-.ticker-content { display: inline-block; white-space: nowrap; animation: ticker 20s linear infinite; font-size: 0.8em; color: #FFD700; font-weight: 400; }
+.ticker { overflow: hidden; margin: 10px auto; max-width: 65vw; height: 22px; }
+.ticker-content { display: inline-block; white-space: nowrap; animation: tickerscroll 20s linear infinite; font-size: 0.8em; color: #FFD700; font-weight: 400; }
 .ticker-content span { margin: 0 24px; }
-@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes tickerscroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 </style>
 </head>
 <body>
@@ -65,16 +65,17 @@ footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; bord
   <div class="stat"><div class="num">564+</div><div class="label">Certifications</div></div>
   <div class="stat"><div class="num">5</div><div class="label">Countries</div></div>
 </div>
+<div class="ticker"><div class="ticker-content"><span>🏆 48 Members Worldwide</span><span>📜 564+ Certifications</span><span>🇧🇷 Brazil · 35 Golden Jackets</span><span>🇵🇱 Poland · Chapter Lead: Dawid Drabek</span><span>🇬🇧 UK · Chapter Lead: Daniel Gaina</span><span>🌍 Expanding to USA & France</span><span>🏆 48 Members Worldwide</span><span>📜 564+ Certifications</span><span>🇧🇷 Brazil · 35 Golden Jackets</span><span>🇵🇱 Poland · Chapter Lead: Dawid Drabek</span><span>🇬🇧 UK · Chapter Lead: Daniel Gaina</span><span>🌍 Expanding to USA & France</span></div></div>
 
 <div class="map-section">
   <h2>Chapters Around the World</h2>
   <div class="map-wrapper">
     <!-- Dark styled map background -->
     <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0;">
-.ticker { overflow: hidden; margin: 0 auto; max-width: 65vw; height: 22px; }
-.ticker-content { display: inline-block; white-space: nowrap; animation: ticker 20s linear infinite; font-size: 0.8em; color: #FFD700; font-weight: 400; }
+.ticker { overflow: hidden; margin: 10px auto; max-width: 65vw; height: 22px; }
+.ticker-content { display: inline-block; white-space: nowrap; animation: tickerscroll 20s linear infinite; font-size: 0.8em; color: #FFD700; font-weight: 400; }
 .ticker-content span { margin: 0 24px; }
-@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes tickerscroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 <style>@keyframes blink{0%,100%{opacity:0.4}50%{opacity:0.8}}</style>
 .active-country:hover { fill: #FFD700 !important; }
   <path d="M1000.0,294.6L1000.0,296.0L998.2,296.7L996.5,297.3L996.1,296.2L997.5,295.6L998.4,295.5L1000.0,294.6Z M994.8,298.6L995.5,298.2L996.4,299.0L996.0,300.4L994.3,300.8L992.7,300.5L992.5,299.2L993.5,298.3L994.8,298.6Z M0.6,294.5L0.2,295.8L0.0,296.0L0.0,294.6L0.6,294.5Z" fill="#1a1a35" stroke="#2a2a45" stroke-width="0.3"/>
