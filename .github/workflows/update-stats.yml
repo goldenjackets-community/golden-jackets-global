@@ -2,10 +2,10 @@ name: Update Global Stats
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # Daily at 6 AM UTC
-  workflow_dispatch:  # Manual trigger
+    - cron: '0 6 * * *'
+  workflow_dispatch:
   repository_dispatch:
-    types: [chapter-updated]  # Triggered by chapter deploys
+    types: [chapter-updated]
 
 jobs:
   update-stats:
@@ -17,52 +17,56 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Read chapters config
           TOTAL_MEMBERS=0
           TOTAL_CERTS=0
           ACTIVE=0
 
-          for row in $(jq -c '.chapters[] | select(.status=="active")' data.json); do
-            REPO=$(echo $row | jq -r '.repo')
-            BRANCH=$(echo $row | jq -r '.branch')
-            
-            if [ -z "$REPO" ] || [ "$REPO" = "" ]; then continue; fi
-            
-            # Fetch index.html from each chapter repo
+          # Get active chapter repos from data.json
+          REPOS=$(jq -r '.chapters[] | select(.status=="active" and .repo!="") | .repo + "|" + .branch' data.json)
+
+          for entry in $REPOS; do
+            REPO=$(echo "$entry" | cut -d'|' -f1)
+            BRANCH=$(echo "$entry" | cut -d'|' -f2)
+
+            echo "Fetching $REPO ($BRANCH)..."
             HTML=$(gh api "repos/$REPO/contents/index.html?ref=$BRANCH" --jq '.content' | base64 -d 2>/dev/null || echo "")
-            
-            if [ -z "$HTML" ]; then continue; fi
-            
-            # Count members: golden jackets (class="member-card" not challenger/alumni)
-            GOLDEN=$(echo "$HTML" | grep -c 'member-card"' || echo 0)
-            GOLDEN_FOUNDER=$(echo "$HTML" | grep -c 'member-card founder"' || echo 0)
-            GOLDEN_COFOUNDER=$(echo "$HTML" | grep -c 'member-card cofounder"' || echo 0)
-            ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni"' || echo 0)
-            CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger"' || echo 0)
-            
-            # Total members for this chapter
-            CHAPTER_MEMBERS=$((GOLDEN + GOLDEN_FOUNDER + GOLDEN_COFOUNDER + ALUMNI + CHALLENGERS))
-            
-            # Certs: GJ/founder/cofounder/alumni = 12 each, challengers = 10 each
-            GJ_COUNT=$((GOLDEN + GOLDEN_FOUNDER + GOLDEN_COFOUNDER + ALUMNI))
+
+            if [ -z "$HTML" ]; then
+              echo "  Skipped (no access)"
+              continue
+            fi
+
+            GOLDEN=$(echo "$HTML" | grep -c 'member-card"' || true)
+            GOLDEN_F=$(echo "$HTML" | grep -c 'member-card founder"' || true)
+            GOLDEN_C=$(echo "$HTML" | grep -c 'member-card cofounder"' || true)
+            ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni"' || true)
+            CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger"' || true)
+
+            CHAPTER_MEMBERS=$((GOLDEN + GOLDEN_F + GOLDEN_C + ALUMNI + CHALLENGERS))
+            GJ_COUNT=$((GOLDEN + GOLDEN_F + GOLDEN_C + ALUMNI))
             CHAPTER_CERTS=$(( (GJ_COUNT * 12) + (CHALLENGERS * 10) ))
-            
+
             TOTAL_MEMBERS=$((TOTAL_MEMBERS + CHAPTER_MEMBERS))
             TOTAL_CERTS=$((TOTAL_CERTS + CHAPTER_CERTS))
             ACTIVE=$((ACTIVE + 1))
-            
-            echo "  $REPO: $CHAPTER_MEMBERS members, $CHAPTER_CERTS certs"
+
+            echo "  $CHAPTER_MEMBERS members, $CHAPTER_CERTS certs"
           done
 
           COUNTRIES=$(jq '.chapters | length' data.json)
-          
-          echo "Total: $TOTAL_MEMBERS members, $TOTAL_CERTS certs, $ACTIVE active, $COUNTRIES countries"
+          echo "=== Total: $TOTAL_MEMBERS members, $TOTAL_CERTS certs, $ACTIVE active, $COUNTRIES countries ==="
 
           # Update data.json
-          jq --argjson m $TOTAL_MEMBERS --argjson c $TOTAL_CERTS --argjson a $ACTIVE --argjson co $COUNTRIES \
+          jq \
+            --argjson m "$TOTAL_MEMBERS" \
+            --argjson c "$TOTAL_CERTS" \
+            --argjson a "$ACTIVE" \
+            --argjson co "$COUNTRIES" \
             --arg date "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
             '.stats.members=$m | .stats.certifications=$c | .stats.active_chapters=$a | .stats.countries=$co | .last_updated=$date' \
             data.json > data_tmp.json && mv data_tmp.json data.json
+
+          cat data.json | jq '.stats'
 
       - name: Commit if changed
         run: |
