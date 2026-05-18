@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Jackets — Global Dashboard</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a1a; color: #e0e0e0; min-height: 100vh; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 30px; background: #111125; border-bottom: 1px solid #2a2a45; }
+nav h1 { color: #FFD700; font-size: 1.2em; }
+nav .links a { color: #888; text-decoration: none; margin-left: 20px; font-size: 0.85em; }
+nav .links a:hover { color: #FFD700; }
+.stats-row { display: flex; justify-content: center; gap: 40px; padding: 30px 20px; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat .num { font-size: 2.2em; font-weight: 800; color: #FFD700; }
+.stat .label { font-size: 0.8em; color: #888; margin-top: 4px; }
+.map-container { display: flex; justify-content: center; padding: 20px; }
+.map-container svg { max-width: 1000px; width: 100%; height: auto; }
+.country { fill: #1a1a30; stroke: #2a2a45; stroke-width: 0.5; transition: all 0.3s; }
+.country.active { fill: #2d4a1e; stroke: #FFD700; stroke-width: 1.5; cursor: pointer; filter: drop-shadow(0 0 8px rgba(255,215,0,0.3)); }
+.country.active:hover { fill: #3d6a2e; filter: drop-shadow(0 0 15px rgba(255,215,0,0.5)); }
+.country.planned { fill: #1a1a30; stroke: #555; stroke-width: 1; stroke-dasharray: 3 2; }
+.chapters-list { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+.chapters-list h2 { color: #FFD700; font-size: 1.1em; margin-bottom: 16px; }
+.chapter-card { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: #111125; border: 1px solid #2a2a45; border-radius: 10px; margin-bottom: 12px; transition: all 0.3s; }
+.chapter-card:hover { border-color: rgba(255,215,0,0.4); }
+.chapter-card .flag { font-size: 2em; }
+.chapter-card .info { flex: 1; }
+.chapter-card .info h3 { color: #fff; font-size: 0.95em; margin-bottom: 3px; }
+.chapter-card .info p { color: #888; font-size: 0.8em; }
+.chapter-card .status { font-size: 0.75em; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
+.status-active { background: rgba(76,175,80,0.15); color: #4CAF50; }
+.status-onboarding { background: rgba(255,215,0,0.15); color: #FFD700; }
+.status-planned { background: rgba(136,136,136,0.15); color: #888; }
+.chapter-card a { color: #FFD700; text-decoration: none; font-size: 0.8em; }
+.chapter-card a:hover { text-decoration: underline; }
+footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; border-top: 1px solid #1a1a30; margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <h1>🧥 Golden Jackets — Global</h1>
+  <div class="links">
+    <a href="https://goldenjacketsbrazil.com" target="_blank">🇧🇷 Brazil</a>
+    <a href="https://goldenjackets.pl" target="_blank">🇵🇱 Poland</a>
+    <a href="https://goldenjackets.co.uk" target="_blank">🇬🇧 UK</a>
+  </div>
+</nav>
+
+<div class="stats-row">
+  <div class="stat"><div class="num">3</div><div class="label">Active Chapters</div></div>
+  <div class="stat"><div class="num">37</div><div class="label">Golden Jackets</div></div>
+  <div class="stat"><div class="num">444+</div><div class="label">Certifications</div></div>
+  <div class="stat"><div class="num">5</div><div class="label">Countries Targeted</div></div>
+</div>
+
+<div class="map-container">
+  <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+    <!-- Simplified world map paths -->
+    <!-- South America -->
+    <path class="country active" id="brazil" d="M280,280 L320,260 L340,280 L350,320 L340,370 L310,390 L280,380 L260,350 L250,310 L260,290 Z" onclick="window.open('https://goldenjacketsbrazil.com')">
+      <title>🇧🇷 Brazil — 35 members</title>
+    </path>
+    <!-- Europe -->
+    <path class="country active" id="poland" d="M520,175 L540,170 L555,175 L555,190 L545,195 L525,192 L518,185 Z" onclick="window.open('https://goldenjackets.pl')">
+      <title>🇵🇱 Poland — 1 member</title>
+    </path>
+    <path class="country active" id="uk" d="M470,155 L478,148 L480,160 L476,170 L470,168 Z" onclick="window.open('https://goldenjackets.co.uk')">
+      <title>🇬🇧 United Kingdom — 1 member</title>
+    </path>
+    <!-- Planned -->
+    <path class="country planned" id="usa" d="M120,180 L250,180 L260,200 L250,230 L200,240 L140,230 L110,210 L115,190 Z">
+      <title>🇺🇸 USA — Planned</title>
+    </path>
+    <path class="country planned" id="france" d="M488,185 L500,180 L510,188 L505,200 L492,198 L486,192 Z">
+      <title>🇫🇷 France — Planned</title>
+    </path>
+    <!-- Other continents (background) -->
+    <path class="country" d="M460,200 L470,210 L480,220 L500,230 L520,240 L540,260 L560,290 L550,320 L530,340 L510,330 L490,300 L470,270 L460,240 L455,220 Z"/>
+    <path class="country" d="M600,180 L700,170 L780,190 L820,220 L800,260 L750,280 L700,270 L650,250 L620,220 L600,200 Z"/>
+    <path class="country" d="M750,300 L800,290 L830,310 L820,350 L790,360 L760,340 L750,320 Z"/>
+    <!-- Labels for active -->
+    <text x="300" y="340" fill="#FFD700" font-size="11" font-weight="700" text-anchor="middle">BRAZIL</text>
+    <text x="537" y="185" fill="#FFD700" font-size="8" font-weight="700" text-anchor="middle">PL</text>
+    <text x="475" y="163" fill="#FFD700" font-size="8" font-weight="700" text-anchor="middle">UK</text>
+    <text x="185" y="210" fill="#555" font-size="9" text-anchor="middle">USA</text>
+    <text x="498" y="193" fill="#555" font-size="7" text-anchor="middle">FR</text>
+    <!-- Pins -->
+    <circle cx="300" cy="330" r="4" fill="#FFD700" opacity="0.8"/>
+    <circle cx="537" cy="180" r="3" fill="#FFD700" opacity="0.8"/>
+    <circle cx="475" cy="158" r="3" fill="#FFD700" opacity="0.8"/>
+  </svg>
+</div>
+
+<div class="chapters-list">
+  <h2>Chapters</h2>
+  <div class="chapter-card">
+    <div class="flag">🇧🇷</div>
+    <div class="info">
+      <h3>Golden Jackets Brazil</h3>
+      <p>35 members · 3 alumni · 8 challengers · Founded 2024</p>
+    </div>
+    <span class="status status-active">Active</span>
+    <a href="https://goldenjacketsbrazil.com" target="_blank">Visit →</a>
+  </div>
+  <div class="chapter-card">
+    <div class="flag">🇵🇱</div>
+    <div class="info">
+      <h3>Golden Jackets Poland</h3>
+      <p>1 member · Chapter Lead: Dawid Drabek · Founded May 2026</p>
+    </div>
+    <span class="status status-active">Active</span>
+    <a href="https://goldenjackets.pl" target="_blank">Visit →</a>
+  </div>
+  <div class="chapter-card">
+    <div class="flag">🇬🇧</div>
+    <div class="info">
+      <h3>Golden Jackets UK</h3>
+      <p>1 member · Chapter Lead: Daniel Gaina · Founded May 2026</p>
+    </div>
+    <span class="status status-active">Active</span>
+    <a href="https://goldenjackets.co.uk" target="_blank">Visit →</a>
+  </div>
+  <div class="chapter-card">
+    <div class="flag">🇺🇸</div>
+    <div class="info">
+      <h3>Golden Jackets USA</h3>
+      <p>Chapter Lead: Noor Sabahi (confirmed) · Call scheduled</p>
+    </div>
+    <span class="status status-onboarding">Onboarding</span>
+  </div>
+  <div class="chapter-card">
+    <div class="flag">🇫🇷</div>
+    <div class="info">
+      <h3>Golden Jackets France</h3>
+      <p>Chapter Lead: Bangaly KABA (confirmed) · Call scheduled</p>
+    </div>
+    <span class="status status-onboarding">Onboarding</span>
+  </div>
+</div>
+
+<footer>Golden Jackets Community · Global Dashboard · Founder: Ricardo Gulias · 2026</footer>
+
+</body>
+</html>
