@@ -21,11 +21,11 @@ nav .links a:hover { color: #FFD700; }
 .map-wrapper iframe { width: 100%; height: 100%; border: none; pointer-events: none; filter: invert(1) hue-rotate(180deg) saturate(0.3) brightness(0.4); }
 .pin { position: absolute; cursor: pointer; text-align: center; transition: transform 0.3s; }
 .pin:hover { transform: scale(1.3); }
-.pin .dot { font-size: 1em; margin: 0 auto; filter: drop-shadow(0 0 6px rgba(255,215,0,0.6)); animation: pulse 2s infinite; }
+.pin .dot { font-size: 0.8em; margin: 0 auto; }
 .pin .name { font-size: 0.6em; color: #FFD700; font-weight: 700; margin-top: 4px; white-space: nowrap; text-shadow: 0 0 5px #0a0a1a, 0 0 10px #0a0a1a; }
-.pin.planned .dot { filter: grayscale(1) brightness(0.5); animation: none; }
+.pin.planned .dot { opacity: 0.5; }
 .pin.planned .name { color: #555; }
-@keyframes pulse { 0%,100% { box-shadow: 0 0 8px rgba(255,215,0,0.4), 0 0 20px rgba(255,215,0,0.2); } 50% { box-shadow: 0 0 16px rgba(255,215,0,0.8), 0 0 40px rgba(255,215,0,0.4); } }
+
 .chapters-list { max-width: 800px; margin: 40px auto; padding: 0 20px; }
 .chapters-list h2 { color: #FFD700; font-size: 1.1em; margin-bottom: 16px; }
 .chapter-card { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: #111125; border: 1px solid #2a2a45; border-radius: 10px; margin-bottom: 12px; transition: all 0.3s; text-decoration: none; color: inherit; }
