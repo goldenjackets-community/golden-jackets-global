@@ -21,8 +21,8 @@ nav .links a:hover { color: #FFD700; }
 .map-wrapper iframe { width: 100%; height: 100%; border: none; pointer-events: none; filter: invert(1) hue-rotate(180deg) saturate(0.3) brightness(0.4); }
 .pin { position: absolute; cursor: pointer; text-align: center; transition: transform 0.3s; }
 .pin:hover { transform: scale(1.3); }
-.pin .dot { font-size: 1.5em; margin: 0 auto; filter: drop-shadow(0 0 6px rgba(255,215,0,0.6)); animation: pulse 2s infinite; }
-.pin .name { font-size: 0.7em; color: #FFD700; font-weight: 700; margin-top: 4px; white-space: nowrap; text-shadow: 0 0 5px #0a0a1a, 0 0 10px #0a0a1a; }
+.pin .dot { font-size: 1em; margin: 0 auto; filter: drop-shadow(0 0 6px rgba(255,215,0,0.6)); animation: pulse 2s infinite; }
+.pin .name { font-size: 0.6em; color: #FFD700; font-weight: 700; margin-top: 4px; white-space: nowrap; text-shadow: 0 0 5px #0a0a1a, 0 0 10px #0a0a1a; }
 .pin.planned .dot { filter: grayscale(1) brightness(0.5); animation: none; }
 .pin.planned .name { color: #555; }
 @keyframes pulse { 0%,100% { box-shadow: 0 0 8px rgba(255,215,0,0.4), 0 0 20px rgba(255,215,0,0.2); } 50% { box-shadow: 0 0 16px rgba(255,215,0,0.8), 0 0 40px rgba(255,215,0,0.4); } }
@@ -66,11 +66,11 @@ footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; bord
     <!-- Dark styled map background -->
     <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/BlankMap-World-Flattened.svg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.15;filter:invert(1);" crossorigin="anonymous" onerror="this.src='https://unpkg.com/@svg-maps/world/world.svg'">
     <!-- Pins -->
-    <div class="pin" style="top:65%;left:30%;" onclick="window.open('https://goldenjacketsbrazil.com')"><div class="dot">📍</div><div class="name">🇧🇷 Brazil</div></div>
-    <div class="pin" style="top:37%;left:53%;" onclick="window.open('https://goldenjackets.pl')"><div class="dot">📍</div><div class="name">🇵🇱 Poland</div></div>
-    <div class="pin" style="top:32%;left:47%;" onclick="window.open('https://goldenjackets.co.uk')"><div class="dot">📍</div><div class="name">🇬🇧 UK</div></div>
-    <div class="pin planned" style="top:38%;left:20%;"><div class="dot">📍</div><div class="name">🇺🇸 USA</div></div>
-    <div class="pin planned" style="top:38%;left:49%;"><div class="dot">📍</div><div class="name">🇫🇷 France</div></div>
+    <div class="pin" style="top:72%;left:30%;" onclick="window.open('https://goldenjacketsbrazil.com')"><div class="dot">📍</div><div class="name">🇧🇷 Brazil</div></div>
+    <div class="pin" style="top:43%;left:53%;" onclick="window.open('https://goldenjackets.pl')"><div class="dot">📍</div><div class="name">🇵🇱 Poland</div></div>
+    <div class="pin" style="top:38%;left:47%;" onclick="window.open('https://goldenjackets.co.uk')"><div class="dot">📍</div><div class="name">🇬🇧 UK</div></div>
+    <div class="pin planned" style="top:43%;left:20%;"><div class="dot">📍</div><div class="name">🇺🇸 USA</div></div>
+    <div class="pin planned" style="top:43%;left:49%;"><div class="dot">📍</div><div class="name">🇫🇷 France</div></div>
   </div>
 </div>
 
