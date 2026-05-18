@@ -1,0 +1,81 @@
+{
+  "chapters": [
+    {
+      "id": "brazil",
+      "name": "Golden Jackets Brazil",
+      "iso": "BRA",
+      "flag": "🇧🇷",
+      "code": "BR",
+      "domain": "goldenjacketsbrazil.com",
+      "repo": "goldenjackets-community/golden-jackets-brazil",
+      "branch": "main",
+      "lead": "Ricardo Gulias",
+      "founded": "2024",
+      "status": "active",
+      "pin": {"top": "54%", "left": "35%"}
+    },
+    {
+      "id": "poland",
+      "name": "Golden Jackets Poland",
+      "iso": "POL",
+      "flag": "🇵🇱",
+      "code": "PL",
+      "domain": "goldenjackets.pl",
+      "repo": "goldenjackets-community/golden-jackets-poland",
+      "branch": "master",
+      "lead": "Dawid Drabek",
+      "founded": "May 2026",
+      "status": "active",
+      "pin": {"top": "17%", "left": "55%"}
+    },
+    {
+      "id": "uk",
+      "name": "Golden Jackets UK",
+      "iso": "GBR",
+      "flag": "🇬🇧",
+      "code": "UK",
+      "domain": "goldenjackets.co.uk",
+      "repo": "goldenjackets-community/golden-jackets-uk",
+      "branch": "master",
+      "lead": "Daniel Gaina",
+      "founded": "May 2026",
+      "status": "active",
+      "pin": {"top": "16%", "left": "49%"}
+    },
+    {
+      "id": "usa",
+      "name": "Golden Jackets USA",
+      "iso": "USA",
+      "flag": "🇺🇸",
+      "code": "US",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "Noor Sabahi",
+      "founded": "",
+      "status": "onboarding",
+      "pin": {"top": "25%", "left": "22%"}
+    },
+    {
+      "id": "france",
+      "name": "Golden Jackets France",
+      "iso": "FRA",
+      "flag": "🇫🇷",
+      "code": "FR",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "Bangaly KABA",
+      "founded": "",
+      "status": "onboarding",
+      "pin": {"top": "20%", "left": "50%"}
+    }
+  ],
+  "stats": {
+    "members": 49,
+    "certifications": 570,
+    "active_chapters": 3,
+    "countries": 5
+  },
+  "last_updated": ""
+}

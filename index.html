@@ -328,3 +328,12 @@ countries.forEach(function(c){
 
 </body>
 </html>
+<script>
+fetch('data.json?t='+Date.now()).then(r=>r.json()).then(function(d){
+  var nums = document.querySelectorAll('.stat .num');
+  nums[0].textContent = d.stats.active_chapters;
+  nums[1].textContent = d.stats.members;
+  nums[2].textContent = d.stats.certifications + '+';
+  nums[3].textContent = d.stats.countries;
+});
+</script>
