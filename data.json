@@ -4,7 +4,7 @@
       "id": "brazil",
       "name": "Golden Jackets Brazil",
       "iso": "BRA",
-      "flag": "🇧🇷",
+      "flag": "\ud83c\udde7\ud83c\uddf7",
       "code": "BR",
       "domain": "goldenjacketsbrazil.com",
       "repo": "goldenjackets-community/golden-jackets-brazil",
@@ -21,7 +21,7 @@
       "id": "poland",
       "name": "Golden Jackets Poland",
       "iso": "POL",
-      "flag": "🇵🇱",
+      "flag": "\ud83c\uddf5\ud83c\uddf1",
       "code": "PL",
       "domain": "goldenjackets.pl",
       "repo": "goldenjackets-community/golden-jackets-poland",
@@ -38,7 +38,7 @@
       "id": "uk",
       "name": "Golden Jackets UK",
       "iso": "GBR",
-      "flag": "🇬🇧",
+      "flag": "\ud83c\uddec\ud83c\udde7",
       "code": "UK",
       "domain": "goldenjackets.co.uk",
       "repo": "goldenjackets-community/golden-jackets-uk",
@@ -55,7 +55,7 @@
       "id": "usa",
       "name": "Golden Jackets USA",
       "iso": "USA",
-      "flag": "🇺🇸",
+      "flag": "\ud83c\uddfa\ud83c\uddf8",
       "code": "US",
       "domain": "",
       "repo": "",
@@ -72,7 +72,7 @@
       "id": "france",
       "name": "Golden Jackets France",
       "iso": "FRA",
-      "flag": "🇫🇷",
+      "flag": "\ud83c\uddeb\ud83c\uddf7",
       "code": "FR",
       "domain": "",
       "repo": "",
@@ -87,10 +87,10 @@
     }
   ],
   "stats": {
-    "members": 51,
-    "certifications": 592,
+    "members": 53,
+    "certifications": 600,
     "active_chapters": 3,
-    "countries": 5
+    "countries": 3
   },
-  "last_updated": "2026-05-19T09:54:52Z"
+  "last_updated": "2026-05-19T14:15:00Z"
 }
