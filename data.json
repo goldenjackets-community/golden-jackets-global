@@ -84,13 +84,30 @@
         "top": "20%",
         "left": "50%"
       }
+    },
+    {
+      "id": "chile",
+      "name": "Golden Jackets Chile",
+      "iso": "CHL",
+      "flag": "\ud83c\udde8\ud83c\uddf1",
+      "code": "CL",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "Oscar Alexander Gaviria Gonzalez",
+      "founded": "",
+      "status": "onboarding",
+      "pin": {
+        "top": "72%",
+        "left": "30%"
+      }
     }
   ],
   "stats": {
     "members": 58,
     "certifications": 705,
     "active_chapters": 3,
-    "countries": 5
+    "countries": 6
   },
-  "last_updated": "2026-05-22T19:32:00Z"
+  "last_updated": "2026-05-22T19:34:00Z"
 }
