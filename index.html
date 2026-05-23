@@ -71,6 +71,8 @@ footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; bord
   </div>
 </nav>
 
+<h1 id="typing" style="text-align:center;color:#FFD700;font-size:2em;margin:20px 0 0 0;font-weight:800;min-height:1.2em;"></h1>
+<p style="text-align:center;color:#888;font-size:0.9em;margin-bottom:10px;">The global community of AWS all-certified professionals</p>
 <div class="stats-row">
   <div class="stat"><div class="num" data-target="3">0</div><div class="label">Active Chapters</div></div>
   <div class="stat"><div class="num" data-target="58">0</div><div class="label">Members</div></div>
@@ -398,6 +400,19 @@ resize();window.addEventListener('resize',resize);
 var pts=[];for(var i=0;i<30;i++)pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+0.5,dx:(Math.random()-0.5)*0.3,dy:-Math.random()*0.3-0.1,o:Math.random()*0.3+0.05});
 function draw(){ctx.clearRect(0,0,c.width,c.height);pts.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(255,215,0,'+p.o+')';ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.y<-5){p.y=c.height+5;p.x=Math.random()*c.width;}if(p.x<-5||p.x>c.width+5)p.dx*=-1;});requestAnimationFrame(draw);}
 draw();
+})();
+</script>
+<script>
+(function(){
+var text='Golden Jackets Global';
+var el=document.getElementById('typing');
+var i=0;
+function type(){
+  if(i<=text.length){el.textContent=text.slice(0,i);i++;setTimeout(type,80);}
+  else{el.style.borderRight='none';}
+}
+el.style.borderRight='2px solid #FFD700';
+type();
 })();
 </script>
 </body>
