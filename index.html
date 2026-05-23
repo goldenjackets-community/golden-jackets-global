@@ -25,10 +25,12 @@ nav .links a:hover { color: #FFD700; }
 .map-wrapper iframe { width: 100%; height: 100%; border: none; pointer-events: none; filter: invert(1) hue-rotate(180deg) saturate(0.3) brightness(0.4); }
 .pin { position: absolute; cursor: pointer; text-align: center; transition: transform 0.3s; }
 .pin:hover { transform: scale(1.3); }
-.pin .dot { font-size: 0.8em; margin: 0 auto; }
+.pin .dot { position:relative; font-size: 0.8em; margin: 0 auto; }
 .pin .name { font-size: 0.6em; color: #ccc; font-weight: 400; margin-top: 4px; white-space: nowrap; text-shadow: 0 0 5px #0a0a1a, 0 0 10px #0a0a1a; }
 .pin.planned .dot { opacity: 0.5; }
 .pin.planned .name { color: #888; }
+.pin:not(.planned) .dot::after { content:""; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:20px; height:20px; border-radius:50%; border:2px solid #FFD700; animation:radar 2s infinite; opacity:0; }
+@keyframes radar { 0%{width:10px;height:10px;opacity:0.8;} 100%{width:40px;height:40px;opacity:0;} }
 .pin .tooltip { display:none; position:absolute; bottom:130%; left:50%; transform:translateX(-50%); background:#1a1a30; border:1px solid #FFD700; border-radius:8px; padding:8px 12px; font-size:0.7em; white-space:nowrap; color:#e0e0e0; z-index:10; pointer-events:none; }
 .pin:hover .tooltip { display:block; }
 .pin .tooltip::after { content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:#FFD700; }
