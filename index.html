@@ -70,10 +70,10 @@ footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; bord
 </nav>
 
 <div class="stats-row">
-  <div class="stat"><div class="num">3</div><div class="label">Active Chapters</div></div>
-  <div class="stat"><div class="num">54</div><div class="label">Members</div></div>
-  <div class="stat"><div class="num">630+</div><div class="label">Certifications</div></div>
-  <div class="stat"><div class="num">3</div><div class="label">Countries</div></div>
+  <div class="stat"><div class="num" data-target="3">0</div><div class="label">Active Chapters</div></div>
+  <div class="stat"><div class="num" data-target="58">0</div><div class="label">Members</div></div>
+  <div class="stat"><div class="num" data-target="705" data-suffix="+">0</div><div class="label">Certifications</div></div>
+  <div class="stat"><div class="num" data-target="6">0</div><div class="label">Countries</div></div>
 </div>
 
 <div class="map-section">
@@ -367,6 +367,26 @@ countries.forEach(function(c){
 })();
 </script>
 
+<script>
+document.querySelectorAll('.num[data-target]').forEach(function(el){
+  var target=parseInt(el.dataset.target);
+  var suffix=el.dataset.suffix||'';
+  var duration=2000;
+  var start=0;
+  var startTime=null;
+  function step(ts){
+    if(!startTime)startTime=ts;
+    var p=Math.min((ts-startTime)/duration,1);
+    var ease=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(ease*target)+suffix;
+    if(p<1)requestAnimationFrame(step);
+  }
+  var observer=new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){requestAnimationFrame(step);observer.disconnect();}
+  },{threshold:0.5});
+  observer.observe(el);
+});
+</script>
 </body>
 </html>
 <script>
