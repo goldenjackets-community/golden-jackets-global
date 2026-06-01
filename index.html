@@ -479,11 +479,11 @@ type();
 </body>
 </html>
 <script>
-fetch('data.json?t='+Date.now()).then(r=>r.json()).then(function(d){
-  var nums = document.querySelectorAll('.stat .num');
-  nums[0].textContent = d.stats.active_chapters;
-  nums[1].textContent = d.stats.members;
-  nums[2].textContent = d.stats.certifications + '+';
-  nums[3].textContent = d.stats.countries;
+fetch("data.json?t="+Date.now()).then(r=>r.json()).then(function(d){
+  var nums = document.querySelectorAll(".stat .num");
+  if(d.stats.active_chapters) nums[0].setAttribute("data-target", d.stats.active_chapters);
+  if(d.stats.members) nums[2].setAttribute("data-target", d.stats.members);
+  if(d.stats.certifications) nums[3].setAttribute("data-target", d.stats.certifications);
+  if(d.stats.countries) nums[4].setAttribute("data-target", d.stats.countries);
 });
 </script>
