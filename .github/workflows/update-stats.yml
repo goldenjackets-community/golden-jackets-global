@@ -41,14 +41,17 @@ jobs:
               continue
             fi
 
-            GOLDEN=$(echo "$HTML" | grep -c 'member-card"' || true)
+            GOLDEN=$(echo "$HTML" | grep -c 'class="member-card' || true)
             GOLDEN_F=$(echo "$HTML" | grep -c 'member-card founder"' || true)
             GOLDEN_C=$(echo "$HTML" | grep -c 'member-card cofounder"' || true)
             ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni"' || true)
             CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger"' || true)
 
-            CM=$((GOLDEN + GOLDEN_F + GOLDEN_C + ALUMNI + CHALLENGERS))
-            GJ_COUNT=$((GOLDEN + GOLDEN_F + GOLDEN_C + ALUMNI))
+            # Count all member cards (each has data-state)
+            CM=$(echo "$HTML" | grep -c 'data-state=' || true)
+            ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni' || true)
+            CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger' || true)
+            GJ_COUNT=$((CM - CHALLENGERS))
             CC=$(( (GJ_COUNT * 12) + (CHALLENGERS * 10) ))
 
             TOTAL_MEMBERS=$((TOTAL_MEMBERS + CM))
