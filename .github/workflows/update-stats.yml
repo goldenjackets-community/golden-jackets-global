@@ -48,7 +48,7 @@ jobs:
             CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger"' || true)
 
             # Count all member cards (each has data-state)
-            CM=$(echo "$HTML" | grep -c 'data-state=' || true)
+            CM=$(echo "$HTML" | grep -c 'class="member-card' || true)
             ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni' || true)
             CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger' || true)
             GJ_COUNT=$((CM - CHALLENGERS))
