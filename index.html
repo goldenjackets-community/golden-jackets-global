@@ -82,7 +82,7 @@ footer { text-align: center; padding: 30px; color: #555; font-size: 0.75em; bord
 <h1 id="typing" style="text-align:center;color:#FFD700;font-size:2em;margin:5px 0 0 0;font-weight:800;min-height:1.2em;"></h1>
 <p style="text-align:center;color:#888;font-size:0.8em;margin:0 0 2px 0;">The global community of AWS all-certified professionals</p>
 <div class="stats-row">
-  <div class="stat"><div class="num" data-target="4">0</div><div class="label">Active Chapters</div></div>
+  <div class="stat"><div class="num" data-target="62">0</div><div class="label">Active Chapters</div></div>
   <div class="stat"><div class="num" data-target="3" style="color:#FFA500;animation:blink 2s infinite">0</div><div class="label" style="color:#FFA500;">Onboarding</div></div>
   <div class="stat"><div class="num" data-target="63">0</div><div class="label">Members</div></div>
   <div class="stat"><div class="num" data-target="765" data-suffix="+">0</div><div class="label">Certifications</div></div>
@@ -441,7 +441,7 @@ document.querySelectorAll('.num[data-target]').forEach(function(el){
 var c=document.getElementById('particles'),ctx=c.getContext('2d');
 function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
 resize();window.addEventListener('resize',resize);
-var pts=[];for(var i=0;i<30;i++)pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+0.5,dx:(Math.random()-0.5)*0.3,dy:-Math.random()*0.3-0.1,o:Math.random()*0.3+0.05});
+var pts=[];for(var i=0;i<30;i++)pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+0.5,dx:(Math.random()-0.5)*0.3,dy:-Math.random()*0.3-0.1,o:Math.random()*0.726+0.05});
 function draw(){ctx.clearRect(0,0,c.width,c.height);pts.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(255,215,0,'+p.o+')';ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.y<-5){p.y=c.height+5;p.x=Math.random()*c.width;}if(p.x<-5||p.x>c.width+5)p.dx*=-1;});requestAnimationFrame(draw);}
 draw();
 })();
