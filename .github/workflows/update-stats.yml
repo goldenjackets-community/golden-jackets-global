@@ -76,12 +76,13 @@ jobs:
             '.stats.members=$m | .stats.certifications=$c | .stats.active_chapters=$a | .stats.countries=$co | .last_updated=$date' \
             data.json > data_tmp.json && mv data_tmp.json data.json
 
-          # Update index.html with new numbers
-          OLD_MEMBERS=$(grep -oP 'data-target="\d+"' index.html | head -1 | grep -oP '\d+')
-          OLD_CERTS=$(grep -oP 'data-target="\d+"' index.html | sed -n '2p' | grep -oP '\d+')
+          # Update index.html with new numbers - use label as anchor to avoid wrong replacements
+          OLD_MEMBERS=$(grep 'Members</div>' index.html | grep -oP 'data-target="\K\d+')
+          OLD_CERTS=$(grep 'Certifications</div>' index.html | grep -oP 'data-target="\K\d+')
 
-          # Replace stats
-          sed -i "s/data-target=\"${OLD_MEMBERS}\"/data-target=\"${TOTAL_MEMBERS}\"/" index.html
+          # Replace stats using specific context
+          sed -i "s/data-target=\"${OLD_MEMBERS}\"\(.*Members<\)/data-target=\"${TOTAL_MEMBERS}\"\1/" index.html
+          sed -i "s/data-target=\"${OLD_CERTS}\"/data-target=\"${TOTAL_CERTS}\"/" index.html
           sed -i "s/${OLD_CERTS}+ Certifications/${TOTAL_CERTS}+ Certifications/g" index.html
           sed -i "s/${OLD_CERTS}+/${TOTAL_CERTS}+/g" index.html
           sed -i "s/🏆 ${OLD_MEMBERS} Members Worldwide/🏆 ${TOTAL_MEMBERS} Members Worldwide/g" index.html
