@@ -23,12 +23,15 @@ jobs:
           TOTAL_CERTS=0
           ACTIVE=0
 
-          # Get active chapter repos from data.json
-          REPOS=$(jq -r '.chapters[] | select(.status=="active" and .repo!="") | .repo + "|" + .branch' data.json)
+          declare -A CHAPTER_MEMBERS
+          declare -A CHAPTER_NAMES
+
+          REPOS=$(jq -r '.chapters[] | select(.status=="active" and .repo!="") | .id + "|" + .repo + "|" + .branch' data.json)
 
           for entry in $REPOS; do
-            REPO=$(echo "$entry" | cut -d'|' -f1)
-            BRANCH=$(echo "$entry" | cut -d'|' -f2)
+            ID=$(echo "$entry" | cut -d'|' -f1)
+            REPO=$(echo "$entry" | cut -d'|' -f2)
+            BRANCH=$(echo "$entry" | cut -d'|' -f3)
 
             echo "Fetching $REPO ($BRANCH)..."
             HTML=$(gh api "repos/$REPO/contents/index.html?ref=$BRANCH" --jq '.content' | base64 -d 2>/dev/null || echo "")
@@ -44,15 +47,20 @@ jobs:
             ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni"' || true)
             CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger"' || true)
 
-            CHAPTER_MEMBERS=$((GOLDEN + GOLDEN_F + GOLDEN_C + ALUMNI + CHALLENGERS))
+            CM=$((GOLDEN + GOLDEN_F + GOLDEN_C + ALUMNI + CHALLENGERS))
             GJ_COUNT=$((GOLDEN + GOLDEN_F + GOLDEN_C + ALUMNI))
-            CHAPTER_CERTS=$(( (GJ_COUNT * 12) + (CHALLENGERS * 10) ))
+            CC=$(( (GJ_COUNT * 12) + (CHALLENGERS * 10) ))
 
-            TOTAL_MEMBERS=$((TOTAL_MEMBERS + CHAPTER_MEMBERS))
-            TOTAL_CERTS=$((TOTAL_CERTS + CHAPTER_CERTS))
+            TOTAL_MEMBERS=$((TOTAL_MEMBERS + CM))
+            TOTAL_CERTS=$((TOTAL_CERTS + CC))
             ACTIVE=$((ACTIVE + 1))
 
-            echo "  $CHAPTER_MEMBERS members, $CHAPTER_CERTS certs"
+            CHAPTER_MEMBERS[$ID]=$CM
+            # Get member names from h3 tags
+            NAMES=$(echo "$HTML" | grep -oP '(?<=<h3>)[^<]+' | head -15 | paste -sd '·' | sed 's/·/ · /g')
+            CHAPTER_NAMES[$ID]="$NAMES"
+
+            echo "  $CM members, $CC certs"
           done
 
           COUNTRIES=$(jq '.chapters | length' data.json)
@@ -68,12 +76,45 @@ jobs:
             '.stats.members=$m | .stats.certifications=$c | .stats.active_chapters=$a | .stats.countries=$co | .last_updated=$date' \
             data.json > data_tmp.json && mv data_tmp.json data.json
 
+          # Update index.html with new numbers
+          OLD_MEMBERS=$(grep -oP 'data-target="\d+"' index.html | head -1 | grep -oP '\d+')
+          OLD_CERTS=$(grep -oP 'data-target="\d+"' index.html | sed -n '2p' | grep -oP '\d+')
+
+          # Replace stats
+          sed -i "s/data-target=\"${OLD_MEMBERS}\"/data-target=\"${TOTAL_MEMBERS}\"/" index.html
+          sed -i "s/${OLD_CERTS}+ Certifications/${TOTAL_CERTS}+ Certifications/g" index.html
+          sed -i "s/${OLD_CERTS}+/${TOTAL_CERTS}+/g" index.html
+          sed -i "s/🏆 ${OLD_MEMBERS} Members Worldwide/🏆 ${TOTAL_MEMBERS} Members Worldwide/g" index.html
+          sed -i "s/${OLD_MEMBERS} members across/${TOTAL_MEMBERS} members across/g" index.html
+          sed -i "s/${OLD_MEMBERS} members,/${TOTAL_MEMBERS} members,/g" index.html
+          sed -i "s/${OLD_MEMBERS} members ·/${TOTAL_MEMBERS} members ·/g" index.html
+
+          # Update per-chapter member counts in index.html
+          for ID in "${!CHAPTER_MEMBERS[@]}"; do
+            CM=${CHAPTER_MEMBERS[$ID]}
+            # Update "XX members" patterns for each chapter
+            case $ID in
+              uk) sed -i -E "s/UK · [0-9]+ Members/UK · ${CM} Members/g" index.html
+                  sed -i -E "s/United Kingdom · [0-9]+ members/United Kingdom · ${CM} members/g" index.html
+                  sed -i -E "s/[0-9]+ members · Chapter Lead: Daniel Gaina/${CM} members · Chapter Lead: Daniel Gaina/g" index.html
+                  ;;
+              brazil) sed -i -E "s/Brazil · [0-9]+ Members/Brazil · ${CM} Members/g" index.html
+                  ;;
+              poland) sed -i -E "s/Poland · [0-9]+ Members/Poland · ${CM} Members/g" index.html
+                  sed -i -E "s/Poland · [0-9]+ members/Poland · ${CM} members/g" index.html
+                  ;;
+              chile) sed -i -E "s/Chile · [0-9]+ Members/Chile · ${CM} Members/g" index.html
+                  sed -i -E "s/Chile · [0-9]+ members/Chile · ${CM} members/g" index.html
+                  ;;
+            esac
+          done
+
           cat data.json | jq '.stats'
 
       - name: Commit if changed
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add data.json
+          git add data.json index.html
           git diff --cached --quiet || git commit -m "Auto-update stats: $(jq -r '.stats.members' data.json) members, $(jq -r '.stats.certifications' data.json) certs"
           git push
