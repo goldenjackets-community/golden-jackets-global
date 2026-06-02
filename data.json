@@ -92,8 +92,8 @@
       "flag": "\ud83c\udde8\ud83c\uddf1",
       "code": "CL",
       "domain": "",
-      "repo": "",
-      "branch": "",
+      "repo": "goldenjackets-community/golden-jackets-chile",
+      "branch": "main",
       "lead": "Oscar Alexander Gaviria Gonzalez",
       "founded": "",
       "status": "active",
@@ -118,6 +118,26 @@
         "top": "32%",
         "left": "72%"
       }
+    },
+    {
+      "id": "italy",
+      "name": "Golden Jackets Italy",
+      "status": "active",
+      "domain": "goldenjackets.it",
+      "repo": "goldenjackets-community/golden-jackets-italy",
+      "branch": "main",
+      "leader": "Luca D'Addeo",
+      "founded": "June 2026"
+    },
+    {
+      "id": "peru",
+      "name": "Golden Jackets Peru",
+      "status": "onboarding",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "leader": "Fernando Carrillo",
+      "founded": ""
     }
   ],
   "stats": {
