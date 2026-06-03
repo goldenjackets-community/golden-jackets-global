@@ -41,14 +41,14 @@ jobs:
               continue
             fi
 
-            GOLDEN=$(echo "$HTML" | grep -c 'class="member-card' || true)
+            GOLDEN=$(echo "$HTML" | grep -cP 'class="member-card[ "]' || true)
             GOLDEN_F=$(echo "$HTML" | grep -c 'member-card founder"' || true)
             GOLDEN_C=$(echo "$HTML" | grep -c 'member-card cofounder"' || true)
             ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni"' || true)
             CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger"' || true)
 
             # Count all member cards (each has data-state)
-            CM=$(echo "$HTML" | grep -c 'class="member-card' || true)
+            CM=$(echo "$HTML" | grep -cP 'class="member-card[ "]' || true)
             ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni' || true)
             CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger' || true)
             GJ_COUNT=$((CM - CHALLENGERS))
@@ -112,6 +112,13 @@ jobs:
                   ;;
             esac
           done
+
+          # Sanity check: don't allow stats to decrease (protects against grep bugs)
+          CURRENT_MEMBERS=$(jq -r '.stats.members' data.json)
+          if [ "$TOTAL_MEMBERS" -lt "$((CURRENT_MEMBERS * 90 / 100))" ]; then
+            echo "⚠️ SKIPPING: New count ($TOTAL_MEMBERS) is >10% less than current ($CURRENT_MEMBERS). Likely a bug."
+            exit 0
+          fi
 
           cat data.json | jq '.stats'
 
