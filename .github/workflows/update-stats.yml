@@ -2,7 +2,7 @@ name: Update Global Stats
 
 on:
   schedule:
-    - cron: '0 6 * * *'
+    # - cron: disabled until counting logic is fixed
   workflow_dispatch:
   repository_dispatch:
     types: [chapter-updated]
