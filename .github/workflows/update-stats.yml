@@ -1,14 +1,12 @@
 name: Update Global Stats
 
 on:
-  schedule:
-    # - cron: disabled until counting logic is fixed
+  # Only manual trigger - auto-counting is supplementary, never decreases
   workflow_dispatch:
-  # repository_dispatch: disabled
-  #   types: [chapter-updated]
 
 permissions:
   contents: write
+
 jobs:
   update-stats:
     runs-on: ubuntu-latest
@@ -23,15 +21,11 @@ jobs:
           TOTAL_CERTS=0
           ACTIVE=0
 
-          declare -A CHAPTER_MEMBERS
-          declare -A CHAPTER_NAMES
-
-          REPOS=$(jq -r '.chapters[] | select(.status=="active" and .repo!="") | .id + "|" + .repo + "|" + .branch' data.json)
+          REPOS=$(jq -r '.chapters[] | select(.status=="active" and .repo!="") | .repo + "|" + .branch' data.json)
 
           for entry in $REPOS; do
-            ID=$(echo "$entry" | cut -d'|' -f1)
-            REPO=$(echo "$entry" | cut -d'|' -f2)
-            BRANCH=$(echo "$entry" | cut -d'|' -f3)
+            REPO=$(echo "$entry" | cut -d'|' -f1)
+            BRANCH=$(echo "$entry" | cut -d'|' -f2)
 
             echo "Fetching $REPO ($BRANCH)..."
             HTML=$(gh api "repos/$REPO/contents/index.html?ref=$BRANCH" --jq '.content' | base64 -d 2>/dev/null || echo "")
@@ -41,85 +35,69 @@ jobs:
               continue
             fi
 
-            GOLDEN=$(echo "$HTML" | grep -cP 'class="member-card[ "]' || true)
-            GOLDEN_F=$(echo "$HTML" | grep -c 'member-card founder"' || true)
-            GOLDEN_C=$(echo "$HTML" | grep -c 'member-card cofounder"' || true)
-            ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni"' || true)
-            CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger"' || true)
-
-            # Count all member cards (each has data-state)
-            CM=$(echo "$HTML" | grep -cP 'class="member-card[ "]' || true)
-            ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni' || true)
+            # Count all member-card divs (golden + alumni + challengers)
+            CM=$(echo "$HTML" | grep -c 'class="member-card' || true)
             CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger' || true)
-            GJ_COUNT=$((CM - CHALLENGERS))
-            CC=$(( (GJ_COUNT * 12) + (CHALLENGERS * 10) ))
+            ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni' || true)
+            
+            # Certifications: golden=12, challengers=10, alumni=12
+            GOLDEN=$((CM - CHALLENGERS - ALUMNI))
+            CC=$(( (GOLDEN * 12) + (CHALLENGERS * 10) + (ALUMNI * 12) ))
 
             TOTAL_MEMBERS=$((TOTAL_MEMBERS + CM))
             TOTAL_CERTS=$((TOTAL_CERTS + CC))
             ACTIVE=$((ACTIVE + 1))
 
-            CHAPTER_MEMBERS[$ID]=$CM
-            # Get member names from h3 tags
-            NAMES=$(echo "$HTML" | grep -oP '(?<=<h3>)[^<]+' | head -15 | paste -sd '·' | sed 's/·/ · /g')
-            CHAPTER_NAMES[$ID]="$NAMES"
-
-            echo "  $CM members, $CC certs"
+            echo "  $CM members ($GOLDEN golden, $ALUMNI alumni, $CHALLENGERS challengers), $CC certs"
           done
 
           COUNTRIES=$(jq '.chapters | length' data.json)
-          echo "=== Total: $TOTAL_MEMBERS members, $TOTAL_CERTS certs, $ACTIVE active, $COUNTRIES countries ==="
+          echo "=== Counted: $TOTAL_MEMBERS members, $TOTAL_CERTS certs ==="
+
+          # SAFETY: Never decrease stats. Only update if higher than current.
+          CURRENT_MEMBERS=$(jq -r '.stats.members' data.json)
+          CURRENT_CERTS=$(jq -r '.stats.certifications' data.json)
+
+          if [ "$TOTAL_MEMBERS" -gt "$CURRENT_MEMBERS" ]; then
+            FINAL_MEMBERS=$TOTAL_MEMBERS
+          else
+            FINAL_MEMBERS=$CURRENT_MEMBERS
+            echo "⚠️ Keeping existing member count ($CURRENT_MEMBERS) — site count ($TOTAL_MEMBERS) is lower (some members not on site yet)"
+          fi
+
+          if [ "$TOTAL_CERTS" -gt "$CURRENT_CERTS" ]; then
+            FINAL_CERTS=$TOTAL_CERTS
+          else
+            FINAL_CERTS=$CURRENT_CERTS
+            echo "⚠️ Keeping existing cert count ($CURRENT_CERTS)"
+          fi
 
           # Update data.json
           jq \
-            --argjson m "$TOTAL_MEMBERS" \
-            --argjson c "$TOTAL_CERTS" \
+            --argjson m "$FINAL_MEMBERS" \
+            --argjson c "$FINAL_CERTS" \
             --argjson a "$ACTIVE" \
             --argjson co "$COUNTRIES" \
             --arg date "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
             '.stats.members=$m | .stats.certifications=$c | .stats.active_chapters=$a | .stats.countries=$co | .last_updated=$date' \
             data.json > data_tmp.json && mv data_tmp.json data.json
 
-          # Update index.html with new numbers - use label as anchor to avoid wrong replacements
-          OLD_MEMBERS=$(grep 'Members</div>' index.html | grep -oP 'data-target="\K\d+')
-          OLD_CERTS=$(grep 'Certifications</div>' index.html | grep -oP 'data-target="\K\d+')
+          # Update index.html counters
+          OLD_MEMBERS=$(grep -oP 'data-target="\K\d+(?=".*Members)' index.html | head -1)
+          OLD_CERTS=$(grep -oP 'data-target="\K\d+(?=".*Certifications)' index.html | head -1)
 
-          # Replace stats using specific context
-          sed -i "s/data-target=\"${OLD_MEMBERS}\"\(.*Members<\)/data-target=\"${TOTAL_MEMBERS}\"\1/" index.html
-          sed -i "s/data-target=\"${OLD_CERTS}\"/data-target=\"${TOTAL_CERTS}\"/" index.html
-          sed -i "s/${OLD_CERTS}+ Certifications/${TOTAL_CERTS}+ Certifications/g" index.html
-          sed -i "s/${OLD_CERTS}+/${TOTAL_CERTS}+/g" index.html
-          sed -i "s/🏆 ${OLD_MEMBERS} Members Worldwide/🏆 ${TOTAL_MEMBERS} Members Worldwide/g" index.html
-          sed -i "s/${OLD_MEMBERS} members across/${TOTAL_MEMBERS} members across/g" index.html
-          sed -i "s/${OLD_MEMBERS} members,/${TOTAL_MEMBERS} members,/g" index.html
-          sed -i "s/${OLD_MEMBERS} members ·/${TOTAL_MEMBERS} members ·/g" index.html
-
-          # Update per-chapter member counts in index.html
-          for ID in "${!CHAPTER_MEMBERS[@]}"; do
-            CM=${CHAPTER_MEMBERS[$ID]}
-            # Update "XX members" patterns for each chapter
-            case $ID in
-              uk) sed -i -E "s/UK · [0-9]+ Members/UK · ${CM} Members/g" index.html
-                  sed -i -E "s/United Kingdom · [0-9]+ members/United Kingdom · ${CM} members/g" index.html
-                  sed -i -E "s/[0-9]+ members · Chapter Lead: Daniel Gaina/${CM} members · Chapter Lead: Daniel Gaina/g" index.html
-                  ;;
-              brazil) sed -i -E "s/Brazil · [0-9]+ Members/Brazil · ${CM} Members/g" index.html
-                  ;;
-              poland) sed -i -E "s/Poland · [0-9]+ Members/Poland · ${CM} Members/g" index.html
-                  sed -i -E "s/Poland · [0-9]+ members/Poland · ${CM} members/g" index.html
-                  ;;
-              chile) sed -i -E "s/Chile · [0-9]+ Members/Chile · ${CM} Members/g" index.html
-                  sed -i -E "s/Chile · [0-9]+ members/Chile · ${CM} members/g" index.html
-                  ;;
-            esac
-          done
-
-          # Sanity check: don't allow stats to decrease (protects against grep bugs)
-          CURRENT_MEMBERS=$(jq -r '.stats.members' data.json)
-          if [ "$TOTAL_MEMBERS" -lt "$((CURRENT_MEMBERS * 90 / 100))" ]; then
-            echo "⚠️ SKIPPING: New count ($TOTAL_MEMBERS) is >10% less than current ($CURRENT_MEMBERS). Likely a bug."
-            exit 0
+          if [ -n "$OLD_MEMBERS" ]; then
+            sed -i "s/data-target=\"${OLD_MEMBERS}\"\(.*Members\)/data-target=\"${FINAL_MEMBERS}\"\1/" index.html
+            sed -i "s/🏆 ${OLD_MEMBERS} Members/🏆 ${FINAL_MEMBERS} Members/g" index.html
+            sed -i "s/${OLD_MEMBERS} members/${FINAL_MEMBERS} members/g" index.html
+          fi
+          if [ -n "$OLD_CERTS" ]; then
+            sed -i "s/data-target=\"${OLD_CERTS}\"\(.*Certifications\)/data-target=\"${FINAL_CERTS}\"\1/" index.html
+            sed -i "s/📜 ${OLD_CERTS}+/📜 ${FINAL_CERTS}+/g" index.html
+            sed -i "s/${OLD_CERTS}+ Certifications/${FINAL_CERTS}+ Certifications/g" index.html
           fi
 
+          echo "=== Final: $FINAL_MEMBERS members, $FINAL_CERTS certs ==="
           cat data.json | jq '.stats'
 
       - name: Commit if changed
