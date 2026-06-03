@@ -4,8 +4,8 @@ on:
   schedule:
     # - cron: disabled until counting logic is fixed
   workflow_dispatch:
-  repository_dispatch:
-    types: [chapter-updated]
+  # repository_dispatch: disabled
+  #   types: [chapter-updated]
 
 permissions:
   contents: write
