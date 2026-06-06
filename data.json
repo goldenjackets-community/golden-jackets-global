@@ -186,13 +186,47 @@
         "top": "15%",
         "left": "57%"
       }
+    },
+    {
+      "id": "japan",
+      "name": "Golden Jackets Japan",
+      "iso": "JPN",
+      "flag": "🇯🇵",
+      "code": "JP",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "TBD",
+      "founded": "June 2026",
+      "status": "negotiation",
+      "pin": {
+        "top": "22%",
+        "left": "82%"
+      }
+    },
+    {
+      "id": "colombia",
+      "name": "Golden Jackets Colombia",
+      "iso": "COL",
+      "flag": "🇨🇴",
+      "code": "CO",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "TBD",
+      "founded": "June 2026",
+      "status": "negotiation",
+      "pin": {
+        "top": "46%",
+        "left": "27%"
+      }
     }
   ],
   "stats": {
     "members": 80,
     "certifications": 936,
     "active_chapters": 11,
-    "countries": 11
+    "countries": 13
   },
   "last_updated": "2026-06-06T16:00:00Z"
 }
