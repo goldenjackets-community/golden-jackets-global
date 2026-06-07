@@ -237,13 +237,30 @@
         "top": "50%",
         "left": "27%"
       }
+    },
+    {
+      "id": "switzerland",
+      "name": "Golden Jackets Switzerland",
+      "iso": "CHE",
+      "flag": "🇨🇭",
+      "code": "CH",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "Ana Pedra",
+      "founded": "June 2026",
+      "status": "negotiation",
+      "pin": {
+        "top": "19%",
+        "left": "52%"
+      }
     }
   ],
   "stats": {
-    "members": 90,
+    "members": 91,
     "certifications": 1032,
-    "active_chapters": 14,
-    "countries": 14
+    "active_chapters": 11,
+    "countries": 15
   },
-  "last_updated": "2026-06-07T20:10:00Z"
+  "last_updated": "2026-06-07T23:16:00Z"
 }
