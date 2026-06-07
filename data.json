@@ -57,7 +57,7 @@
       "iso": "USA",
       "flag": "🇺🇸",
       "code": "US",
-      "domain": "goldenjackets.us",
+      "domain": "goldenjacketsus.com",
       "repo": "goldenjackets-community/golden-jackets-usa",
       "branch": "master",
       "lead": "Noor Sabahi",
@@ -162,7 +162,7 @@
       "domain": "goldenjackets.co.il",
       "repo": "goldenjackets-community/golden-jackets-israel",
       "branch": "master",
-      "lead": "Raz Maor",
+      "lead": "Eyal Tamir",
       "founded": "June 2026",
       "status": "active",
       "pin": {
@@ -179,7 +179,7 @@
       "domain": "goldenjackets.by",
       "repo": "goldenjackets-community/golden-jackets-by",
       "branch": "master",
-      "lead": "TBD",
+      "lead": "Vadim Sorokin",
       "founded": "June 2026",
       "status": "active",
       "pin": {
@@ -220,13 +220,30 @@
         "top": "46%",
         "left": "27%"
       }
+    },
+    {
+      "id": "ecuador",
+      "name": "Golden Jackets Ecuador",
+      "iso": "ECU",
+      "flag": "🇪🇨",
+      "code": "EC",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "Bolivar David L.",
+      "founded": "June 2026",
+      "status": "negotiation",
+      "pin": {
+        "top": "50%",
+        "left": "27%"
+      }
     }
   ],
   "stats": {
-    "members": 83,
-    "certifications": 972,
-    "active_chapters": 11,
-    "countries": 13
+    "members": 90,
+    "certifications": 1032,
+    "active_chapters": 14,
+    "countries": 14
   },
-  "last_updated": "2026-06-06T20:30:00Z"
+  "last_updated": "2026-06-07T20:10:00Z"
 }
