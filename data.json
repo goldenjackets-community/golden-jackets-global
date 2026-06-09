@@ -52,40 +52,6 @@
       }
     },
     {
-      "id": "usa",
-      "name": "Golden Jackets USA",
-      "iso": "USA",
-      "flag": "\ud83c\uddfa\ud83c\uddf8",
-      "code": "US",
-      "domain": "goldenjacketsus.com",
-      "repo": "goldenjackets-community/golden-jackets-usa",
-      "branch": "master",
-      "lead": "Noor Sabahi",
-      "founded": "June 2026",
-      "status": "active",
-      "pin": {
-        "top": "25%",
-        "left": "22%"
-      }
-    },
-    {
-      "id": "france",
-      "name": "Golden Jackets France",
-      "iso": "FRA",
-      "flag": "\ud83c\uddeb\ud83c\uddf7",
-      "code": "FR",
-      "domain": "goldenjackets.fr",
-      "repo": "goldenjackets-community/golden-jackets-france",
-      "branch": "master",
-      "lead": "Bangaly KABA",
-      "founded": "June 2026",
-      "status": "active",
-      "pin": {
-        "top": "19%",
-        "left": "50%"
-      }
-    },
-    {
       "id": "chile",
       "name": "Golden Jackets Chile",
       "iso": "CHL",
@@ -117,6 +83,23 @@
       "pin": {
         "top": "32%",
         "left": "72%"
+      }
+    },
+    {
+      "id": "france",
+      "name": "Golden Jackets France",
+      "iso": "FRA",
+      "flag": "\ud83c\uddeb\ud83c\uddf7",
+      "code": "FR",
+      "domain": "goldenjackets.fr",
+      "repo": "goldenjackets-community/golden-jackets-france",
+      "branch": "master",
+      "lead": "Bangaly KABA",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "19%",
+        "left": "50%"
       }
     },
     {
@@ -154,6 +137,23 @@
       }
     },
     {
+      "id": "usa",
+      "name": "Golden Jackets USA",
+      "iso": "USA",
+      "flag": "\ud83c\uddfa\ud83c\uddf8",
+      "code": "US",
+      "domain": "goldenjacketsus.com",
+      "repo": "goldenjackets-community/golden-jackets-usa",
+      "branch": "master",
+      "lead": "Noor Sabahi",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "25%",
+        "left": "22%"
+      }
+    },
+    {
       "id": "israel",
       "name": "Golden Jackets Israel",
       "iso": "ISR",
@@ -181,10 +181,27 @@
       "branch": "master",
       "lead": "Vadim Sorokin",
       "founded": "June 2026",
-      "status": "negotiation",
+      "status": "active",
       "pin": {
         "top": "15%",
         "left": "57%"
+      }
+    },
+    {
+      "id": "ecuador",
+      "name": "Golden Jackets Ecuador",
+      "iso": "ECU",
+      "flag": "\ud83c\uddea\ud83c\udde8",
+      "code": "EC",
+      "domain": "goldenjackets.ec",
+      "repo": "goldenjackets-community/golden-jackets-ecuador",
+      "branch": "master",
+      "lead": "Bolivar David L.",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "50%",
+        "left": "27%"
       }
     },
     {
@@ -222,45 +239,28 @@
       }
     },
     {
-      "id": "ecuador",
-      "name": "Golden Jackets Ecuador",
-      "iso": "ECU",
-      "flag": "\ud83c\uddea\ud83c\udde8",
-      "code": "EC",
-      "domain": "goldenjackets.ec",
-      "repo": "goldenjackets-community/golden-jackets-ecuador",
-      "branch": "master",
-      "lead": "Bolivar David L.",
-      "founded": "June 2026",
-      "status": "active",
-      "pin": {
-        "top": "50%",
-        "left": "27%"
-      }
-    },
-    {
-      "id": "switzerland",
-      "name": "Golden Jackets Switzerland",
-      "iso": "CHE",
-      "flag": "\ud83c\udde8\ud83c\udded",
-      "code": "CH",
+      "id": "uae",
+      "name": "Golden Jackets UAE",
+      "iso": "ARE",
+      "flag": "\ud83c\udde6\ud83c\uddea",
+      "code": "AE",
       "domain": "",
       "repo": "",
       "branch": "",
-      "lead": "Ana Pedra",
+      "lead": "TBD",
       "founded": "June 2026",
       "status": "negotiation",
       "pin": {
-        "top": "19%",
-        "left": "52%"
+        "top": "30%",
+        "left": "63%"
       }
     }
   ],
   "stats": {
-    "members": 91,
-    "certifications": 1032,
-    "active_chapters": 11,
+    "members": 104,
+    "certifications": 1236,
+    "active_chapters": 12,
     "countries": 15
   },
-  "last_updated": "2026-06-07T23:16:00Z"
+  "last_updated": "2026-06-09T16:45:00Z"
 }
