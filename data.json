@@ -250,7 +250,7 @@
       "branch": "",
       "lead": "TBD",
       "founded": "June 2026",
-      "status": "negotiation",
+      "status": "active",
       "pin": {
         "top": "30%",
         "left": "63%"
@@ -258,10 +258,10 @@
     }
   ],
   "stats": {
-    "members": 112,
+    "members": 113,
     "certifications": "1137+",
-    "active_chapters": 12,
+    "active_chapters": 13,
     "countries": 15
   },
-  "last_updated": "2026-06-11T14:33:42Z"
+  "last_updated": "2026-06-11T14:39:11Z"
 }
