@@ -1,26 +1,269 @@
 {
   "chapters": [
-    {"id": "brazil", "name": "Golden Jackets Brazil", "iso": "BRA", "flag": "\ud83c\udde7\ud83c\uddf7", "code": "BR", "domain": "goldenjacketsbrazil.com", "repo": "goldenjackets-community/golden-jackets-brazil", "branch": "main", "lead": "Ricardo Gulias", "founded": "2024", "status": "active", "pin": {"top": "54%", "left": "35%"}},
-    {"id": "poland", "name": "Golden Jackets Poland", "iso": "POL", "flag": "\ud83c\uddf5\ud83c\uddf1", "code": "PL", "domain": "goldenjackets.pl", "repo": "goldenjackets-community/golden-jackets-poland", "branch": "master", "lead": "Dawid Drabek", "founded": "May 2026", "status": "active", "pin": {"top": "17%", "left": "55%"}},
-    {"id": "uk", "name": "Golden Jackets UK", "iso": "GBR", "flag": "\ud83c\uddec\ud83c\udde7", "code": "UK", "domain": "goldenjackets.co.uk", "repo": "goldenjackets-community/golden-jackets-uk", "branch": "master", "lead": "Daniel Gaina", "founded": "May 2026", "status": "active", "pin": {"top": "16%", "left": "49%"}},
-    {"id": "chile", "name": "Golden Jackets Chile", "iso": "CHL", "flag": "\ud83c\udde8\ud83c\uddf1", "code": "CL", "domain": "goldenjackets.cl", "repo": "goldenjackets-community/golden-jackets-chile", "branch": "master", "lead": "Oscar Alexander Gaviria Gonzalez", "founded": "May 2026", "status": "active", "pin": {"top": "72%", "left": "30%"}},
-    {"id": "india", "name": "Golden Jackets India", "iso": "IND", "flag": "\ud83c\uddee\ud83c\uddf3", "code": "IN", "domain": "goldenjackets.in", "repo": "goldenjackets-community/golden-jackets-india", "branch": "master", "lead": "Vishnu Rachapudi", "founded": "June 2026", "status": "active", "pin": {"top": "32%", "left": "72%"}},
-    {"id": "france", "name": "Golden Jackets France", "iso": "FRA", "flag": "\ud83c\uddeb\ud83c\uddf7", "code": "FR", "domain": "goldenjackets.fr", "repo": "goldenjackets-community/golden-jackets-france", "branch": "master", "lead": "Bangaly KABA", "founded": "June 2026", "status": "active", "pin": {"top": "19%", "left": "50%"}},
-    {"id": "italy", "name": "Golden Jackets Italy", "iso": "ITA", "flag": "\ud83c\uddee\ud83c\uddf9", "code": "IT", "domain": "goldenjackets.it", "repo": "goldenjackets-community/golden-jackets-italy", "branch": "main", "lead": "Luca D'Addeo", "founded": "June 2026", "status": "active", "pin": {"top": "20%", "left": "53%"}},
-    {"id": "peru", "name": "Golden Jackets Peru", "iso": "PER", "flag": "\ud83c\uddf5\ud83c\uddea", "code": "PE", "domain": "goldenjackets.pe", "repo": "goldenjackets-community/golden-jackets-peru", "branch": "master", "lead": "Fernando Carrillo", "founded": "June 2026", "status": "active", "pin": {"top": "60%", "left": "29%"}},
-    {"id": "usa", "name": "Golden Jackets USA", "iso": "USA", "flag": "\ud83c\uddfa\ud83c\uddf8", "code": "US", "domain": "goldenjacketsus.com", "repo": "goldenjackets-community/golden-jackets-usa", "branch": "master", "lead": "Noor Sabahi", "founded": "June 2026", "status": "active", "pin": {"top": "25%", "left": "22%"}},
-    {"id": "israel", "name": "Golden Jackets Israel", "iso": "ISR", "flag": "\ud83c\uddee\ud83c\uddf1", "code": "IL", "domain": "goldenjackets.co.il", "repo": "goldenjackets-community/golden-jackets-israel", "branch": "master", "lead": "Eyal Tamir", "founded": "June 2026", "status": "active", "pin": {"top": "28%", "left": "60%"}},
-    {"id": "belarus", "name": "Golden Jackets Belarus", "iso": "BLR", "flag": "\ud83c\udde7\ud83c\uddfe", "code": "BY", "domain": "goldenjackets.by", "repo": "goldenjackets-community/golden-jackets-by", "branch": "master", "lead": "Vadim Sorokin", "founded": "June 2026", "status": "active", "pin": {"top": "15%", "left": "57%"}},
-    {"id": "ecuador", "name": "Golden Jackets Ecuador", "iso": "ECU", "flag": "\ud83c\uddea\ud83c\udde8", "code": "EC", "domain": "goldenjackets.ec", "repo": "goldenjackets-community/golden-jackets-ecuador", "branch": "master", "lead": "Bolivar David L.", "founded": "June 2026", "status": "active", "pin": {"top": "50%", "left": "27%"}},
-    {"id": "japan", "name": "Golden Jackets Japan", "iso": "JPN", "flag": "\ud83c\uddef\ud83c\uddf5", "code": "JP", "domain": "", "repo": "", "branch": "", "lead": "TBD", "founded": "June 2026", "status": "negotiation", "pin": {"top": "22%", "left": "82%"}},
-    {"id": "colombia", "name": "Golden Jackets Colombia", "iso": "COL", "flag": "\ud83c\udde8\ud83c\uddf4", "code": "CO", "domain": "", "repo": "", "branch": "", "lead": "TBD", "founded": "June 2026", "status": "negotiation", "pin": {"top": "46%", "left": "27%"}},
-    {"id": "uae", "name": "Golden Jackets UAE", "iso": "ARE", "flag": "\ud83c\udde6\ud83c\uddea", "code": "AE", "domain": "", "repo": "", "branch": "", "lead": "TBD", "founded": "June 2026", "status": "negotiation", "pin": {"top": "30%", "left": "63%"}}
+    {
+      "id": "brazil",
+      "name": "Golden Jackets Brazil",
+      "iso": "BRA",
+      "flag": "\ud83c\udde7\ud83c\uddf7",
+      "code": "BR",
+      "domain": "goldenjacketsbrazil.com",
+      "repo": "goldenjackets-community/golden-jackets-brazil",
+      "branch": "main",
+      "lead": "Ricardo Gulias",
+      "founded": "2024",
+      "status": "active",
+      "pin": {
+        "top": "54%",
+        "left": "35%"
+      },
+      "members": 57
+    },
+    {
+      "id": "poland",
+      "name": "Golden Jackets Poland",
+      "iso": "POL",
+      "flag": "\ud83c\uddf5\ud83c\uddf1",
+      "code": "PL",
+      "domain": "goldenjackets.pl",
+      "repo": "goldenjackets-community/golden-jackets-poland",
+      "branch": "master",
+      "lead": "Dawid Drabek",
+      "founded": "May 2026",
+      "status": "active",
+      "pin": {
+        "top": "17%",
+        "left": "55%"
+      }
+    },
+    {
+      "id": "uk",
+      "name": "Golden Jackets UK",
+      "iso": "GBR",
+      "flag": "\ud83c\uddec\ud83c\udde7",
+      "code": "UK",
+      "domain": "goldenjackets.co.uk",
+      "repo": "goldenjackets-community/golden-jackets-uk",
+      "branch": "master",
+      "lead": "Daniel Gaina",
+      "founded": "May 2026",
+      "status": "active",
+      "pin": {
+        "top": "16%",
+        "left": "49%"
+      }
+    },
+    {
+      "id": "chile",
+      "name": "Golden Jackets Chile",
+      "iso": "CHL",
+      "flag": "\ud83c\udde8\ud83c\uddf1",
+      "code": "CL",
+      "domain": "goldenjackets.cl",
+      "repo": "goldenjackets-community/golden-jackets-chile",
+      "branch": "master",
+      "lead": "Oscar Alexander Gaviria Gonzalez",
+      "founded": "May 2026",
+      "status": "active",
+      "pin": {
+        "top": "72%",
+        "left": "30%"
+      },
+      "members": 6
+    },
+    {
+      "id": "india",
+      "name": "Golden Jackets India",
+      "iso": "IND",
+      "flag": "\ud83c\uddee\ud83c\uddf3",
+      "code": "IN",
+      "domain": "goldenjackets.in",
+      "repo": "goldenjackets-community/golden-jackets-india",
+      "branch": "master",
+      "lead": "Vishnu Rachapudi",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "32%",
+        "left": "72%"
+      },
+      "members": 33
+    },
+    {
+      "id": "france",
+      "name": "Golden Jackets France",
+      "iso": "FRA",
+      "flag": "\ud83c\uddeb\ud83c\uddf7",
+      "code": "FR",
+      "domain": "goldenjackets.fr",
+      "repo": "goldenjackets-community/golden-jackets-france",
+      "branch": "master",
+      "lead": "Bangaly KABA",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "19%",
+        "left": "50%"
+      }
+    },
+    {
+      "id": "italy",
+      "name": "Golden Jackets Italy",
+      "iso": "ITA",
+      "flag": "\ud83c\uddee\ud83c\uddf9",
+      "code": "IT",
+      "domain": "goldenjackets.it",
+      "repo": "goldenjackets-community/golden-jackets-italy",
+      "branch": "main",
+      "lead": "Luca D'Addeo",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "20%",
+        "left": "53%"
+      }
+    },
+    {
+      "id": "peru",
+      "name": "Golden Jackets Peru",
+      "iso": "PER",
+      "flag": "\ud83c\uddf5\ud83c\uddea",
+      "code": "PE",
+      "domain": "goldenjackets.pe",
+      "repo": "goldenjackets-community/golden-jackets-peru",
+      "branch": "master",
+      "lead": "Fernando Carrillo",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "60%",
+        "left": "29%"
+      }
+    },
+    {
+      "id": "usa",
+      "name": "Golden Jackets USA",
+      "iso": "USA",
+      "flag": "\ud83c\uddfa\ud83c\uddf8",
+      "code": "US",
+      "domain": "goldenjacketsus.com",
+      "repo": "goldenjackets-community/golden-jackets-usa",
+      "branch": "master",
+      "lead": "Noor Sabahi",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "25%",
+        "left": "22%"
+      }
+    },
+    {
+      "id": "israel",
+      "name": "Golden Jackets Israel",
+      "iso": "ISR",
+      "flag": "\ud83c\uddee\ud83c\uddf1",
+      "code": "IL",
+      "domain": "goldenjackets.co.il",
+      "repo": "goldenjackets-community/golden-jackets-israel",
+      "branch": "master",
+      "lead": "Eyal Tamir",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "28%",
+        "left": "60%"
+      }
+    },
+    {
+      "id": "belarus",
+      "name": "Golden Jackets Belarus",
+      "iso": "BLR",
+      "flag": "\ud83c\udde7\ud83c\uddfe",
+      "code": "BY",
+      "domain": "goldenjackets.by",
+      "repo": "goldenjackets-community/golden-jackets-by",
+      "branch": "master",
+      "lead": "Vadim Sorokin",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "15%",
+        "left": "57%"
+      }
+    },
+    {
+      "id": "ecuador",
+      "name": "Golden Jackets Ecuador",
+      "iso": "ECU",
+      "flag": "\ud83c\uddea\ud83c\udde8",
+      "code": "EC",
+      "domain": "goldenjackets.ec",
+      "repo": "goldenjackets-community/golden-jackets-ecuador",
+      "branch": "master",
+      "lead": "Bolivar David L.",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "50%",
+        "left": "27%"
+      }
+    },
+    {
+      "id": "japan",
+      "name": "Golden Jackets Japan",
+      "iso": "JPN",
+      "flag": "\ud83c\uddef\ud83c\uddf5",
+      "code": "JP",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "TBD",
+      "founded": "June 2026",
+      "status": "negotiation",
+      "pin": {
+        "top": "22%",
+        "left": "82%"
+      }
+    },
+    {
+      "id": "colombia",
+      "name": "Golden Jackets Colombia",
+      "iso": "COL",
+      "flag": "\ud83c\udde8\ud83c\uddf4",
+      "code": "CO",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "TBD",
+      "founded": "June 2026",
+      "status": "negotiation",
+      "pin": {
+        "top": "46%",
+        "left": "27%"
+      }
+    },
+    {
+      "id": "uae",
+      "name": "Golden Jackets UAE",
+      "iso": "ARE",
+      "flag": "\ud83c\udde6\ud83c\uddea",
+      "code": "AE",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "TBD",
+      "founded": "June 2026",
+      "status": "active",
+      "pin": {
+        "top": "30%",
+        "left": "63%"
+      }
+    }
   ],
   "stats": {
-    "members": 105,
-    "certifications": 1050,
-    "active_chapters": 12,
+    "members": 130,
+    "certifications": "1560+",
+    "active_chapters": 13,
     "countries": 15
   },
-  "last_updated": "2026-06-09T21:35:00Z"
+  "last_updated": "2026-06-17T11:39:00Z"
 }
