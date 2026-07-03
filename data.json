@@ -257,13 +257,30 @@
         "top": "30%",
         "left": "63%"
       }
+    },
+    {
+      "id": "bolivia",
+      "name": "Golden Jackets Bolivia",
+      "iso": "BOL",
+      "flag": "🇧🇴",
+      "code": "BO",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "TBD",
+      "founded": "July 2026",
+      "status": "negotiation",
+      "pin": {
+        "top": "57%",
+        "left": "30%"
+      }
     }
   ],
   "stats": {
     "members": 136,
     "certifications": "1632+",
     "active_chapters": 14,
-    "countries": 15
+    "countries": 17
   },
-  "last_updated": "2026-07-02T22:30:00Z"
+  "last_updated": "2026-07-02T23:27:00Z"
 }
