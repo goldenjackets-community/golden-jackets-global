@@ -16,7 +16,7 @@
         "top": "54%",
         "left": "35%"
       },
-      "members": 57
+      "members": 61
     },
     {
       "id": "poland",
@@ -68,7 +68,7 @@
         "top": "72%",
         "left": "30%"
       },
-      "members": 6
+      "members": 7
     },
     {
       "id": "india",
@@ -86,7 +86,7 @@
         "top": "32%",
         "left": "72%"
       },
-      "members": 35
+      "members": 36
     },
     {
       "id": "france",
@@ -148,7 +148,7 @@
       "domain": "goldenjacketsus.com",
       "repo": "goldenjackets-community/golden-jackets-usa",
       "branch": "master",
-      "lead": "Noor Sabahi",
+      "lead": "Dr. Justin Cook",
       "founded": "June 2026",
       "status": "active",
       "pin": {
@@ -239,7 +239,8 @@
       "pin": {
         "top": "46%",
         "left": "27%"
-      }
+      },
+      "members": 4
     },
     {
       "id": "uae",
@@ -277,10 +278,10 @@
     }
   ],
   "stats": {
-    "members": 138,
-    "certifications": "1656+",
+    "members": 148,
+    "certifications": "1776+",
     "active_chapters": 14,
     "countries": 17
   },
-  "last_updated": "2026-07-02T23:27:00Z"
+  "last_updated": "2026-07-09T03:00:00Z"
 }
