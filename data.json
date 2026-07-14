@@ -4,7 +4,7 @@
       "id": "brazil",
       "name": "Golden Jackets Brazil",
       "iso": "BRA",
-      "flag": "🇧🇷",
+      "flag": "\ud83c\udde7\ud83c\uddf7",
       "code": "BR",
       "domain": "goldenjacketsbrazil.com",
       "repo": "goldenjackets-community/golden-jackets-brazil",
@@ -16,13 +16,13 @@
         "top": "54%",
         "left": "35%"
       },
-      "members": 61
+      "members": 62
     },
     {
       "id": "poland",
       "name": "Golden Jackets Poland",
       "iso": "POL",
-      "flag": "🇵🇱",
+      "flag": "\ud83c\uddf5\ud83c\uddf1",
       "code": "PL",
       "domain": "goldenjackets.pl",
       "repo": "goldenjackets-community/golden-jackets-poland",
@@ -33,13 +33,14 @@
       "pin": {
         "top": "17%",
         "left": "55%"
-      }
+      },
+      "members": 1
     },
     {
       "id": "uk",
       "name": "Golden Jackets UK",
       "iso": "GBR",
-      "flag": "🇬🇧",
+      "flag": "\ud83c\uddec\ud83c\udde7",
       "code": "UK",
       "domain": "goldenjackets.co.uk",
       "repo": "goldenjackets-community/golden-jackets-uk",
@@ -50,13 +51,14 @@
       "pin": {
         "top": "16%",
         "left": "49%"
-      }
+      },
+      "members": 16
     },
     {
       "id": "chile",
       "name": "Golden Jackets Chile",
       "iso": "CHL",
-      "flag": "🇨🇱",
+      "flag": "\ud83c\udde8\ud83c\uddf1",
       "code": "CL",
       "domain": "goldenjackets.cl",
       "repo": "goldenjackets-community/golden-jackets-chile",
@@ -74,7 +76,7 @@
       "id": "india",
       "name": "Golden Jackets India",
       "iso": "IND",
-      "flag": "🇮🇳",
+      "flag": "\ud83c\uddee\ud83c\uddf3",
       "code": "IN",
       "domain": "goldenjackets.in",
       "repo": "goldenjackets-community/golden-jackets-india",
@@ -86,13 +88,13 @@
         "top": "32%",
         "left": "72%"
       },
-      "members": 36
+      "members": 37
     },
     {
       "id": "france",
       "name": "Golden Jackets France",
       "iso": "FRA",
-      "flag": "🇫🇷",
+      "flag": "\ud83c\uddeb\ud83c\uddf7",
       "code": "FR",
       "domain": "goldenjackets.fr",
       "repo": "goldenjackets-community/golden-jackets-france",
@@ -103,13 +105,14 @@
       "pin": {
         "top": "19%",
         "left": "50%"
-      }
+      },
+      "members": 7
     },
     {
       "id": "italy",
       "name": "Golden Jackets Italy",
       "iso": "ITA",
-      "flag": "🇮🇹",
+      "flag": "\ud83c\uddee\ud83c\uddf9",
       "code": "IT",
       "domain": "goldenjackets.it",
       "repo": "goldenjackets-community/golden-jackets-italy",
@@ -120,13 +123,14 @@
       "pin": {
         "top": "20%",
         "left": "53%"
-      }
+      },
+      "members": 1
     },
     {
       "id": "peru",
       "name": "Golden Jackets Peru",
       "iso": "PER",
-      "flag": "🇵🇪",
+      "flag": "\ud83c\uddf5\ud83c\uddea",
       "code": "PE",
       "domain": "goldenjackets.pe",
       "repo": "goldenjackets-community/golden-jackets-peru",
@@ -137,13 +141,14 @@
       "pin": {
         "top": "60%",
         "left": "29%"
-      }
+      },
+      "members": 5
     },
     {
       "id": "usa",
       "name": "Golden Jackets USA",
       "iso": "USA",
-      "flag": "🇺🇸",
+      "flag": "\ud83c\uddfa\ud83c\uddf8",
       "code": "US",
       "domain": "goldenjacketsus.com",
       "repo": "goldenjackets-community/golden-jackets-usa",
@@ -154,13 +159,14 @@
       "pin": {
         "top": "25%",
         "left": "22%"
-      }
+      },
+      "members": 10
     },
     {
       "id": "israel",
       "name": "Golden Jackets Israel",
       "iso": "ISR",
-      "flag": "🇮🇱",
+      "flag": "\ud83c\uddee\ud83c\uddf1",
       "code": "IL",
       "domain": "goldenjackets.co.il",
       "repo": "goldenjackets-community/golden-jackets-israel",
@@ -171,13 +177,14 @@
       "pin": {
         "top": "28%",
         "left": "60%"
-      }
+      },
+      "members": 2
     },
     {
       "id": "belarus",
       "name": "Golden Jackets Belarus",
       "iso": "BLR",
-      "flag": "🇧🇾",
+      "flag": "\ud83c\udde7\ud83c\uddfe",
       "code": "BY",
       "domain": "goldenjackets.by",
       "repo": "goldenjackets-community/golden-jackets-by",
@@ -188,13 +195,14 @@
       "pin": {
         "top": "15%",
         "left": "57%"
-      }
+      },
+      "members": 1
     },
     {
       "id": "ecuador",
       "name": "Golden Jackets Ecuador",
       "iso": "ECU",
-      "flag": "🇪🇨",
+      "flag": "\ud83c\uddea\ud83c\udde8",
       "code": "EC",
       "domain": "goldenjackets.ec",
       "repo": "goldenjackets-community/golden-jackets-ecuador",
@@ -205,13 +213,14 @@
       "pin": {
         "top": "50%",
         "left": "27%"
-      }
+      },
+      "members": 1
     },
     {
       "id": "japan",
       "name": "Golden Jackets Japan",
       "iso": "JPN",
-      "flag": "🇯🇵",
+      "flag": "\ud83c\uddef\ud83c\uddf5",
       "code": "JP",
       "domain": "",
       "repo": "",
@@ -222,13 +231,14 @@
       "pin": {
         "top": "22%",
         "left": "82%"
-      }
+      },
+      "members": 1
     },
     {
       "id": "colombia",
       "name": "Golden Jackets Colombia",
       "iso": "COL",
-      "flag": "🇨🇴",
+      "flag": "\ud83c\udde8\ud83c\uddf4",
       "code": "CO",
       "domain": "goldenjackets.co",
       "repo": "goldenjackets-community/golden-jackets-colombia",
@@ -240,13 +250,13 @@
         "top": "46%",
         "left": "27%"
       },
-      "members": 4
+      "members": 9
     },
     {
       "id": "uae",
       "name": "Golden Jackets UAE",
       "iso": "ARE",
-      "flag": "🇦🇪",
+      "flag": "\ud83c\udde6\ud83c\uddea",
       "code": "AE",
       "domain": "",
       "repo": "",
@@ -263,7 +273,7 @@
       "id": "bolivia",
       "name": "Golden Jackets Bolivia",
       "iso": "BOL",
-      "flag": "🇧🇴",
+      "flag": "\ud83c\udde7\ud83c\uddf4",
       "code": "BO",
       "domain": "",
       "repo": "",
@@ -274,12 +284,13 @@
       "pin": {
         "top": "57%",
         "left": "30%"
-      }
+      },
+      "members": 1
     }
   ],
   "stats": {
-    "members": 148,
-    "certifications": "1776+",
+    "members": 162,
+    "certifications": "1944+",
     "active_chapters": 14,
     "countries": 17
   },
