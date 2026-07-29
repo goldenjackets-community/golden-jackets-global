@@ -31,13 +31,22 @@ jobs:
             echo "Fetching $REPO ($BRANCH)..."
             HTML=$(gh api "repos/$REPO/contents/index.html?ref=$BRANCH" --jq '.content' | base64 -d 2>/dev/null || echo "")
 
-            if [ -z "$HTML" ]; then
+            # Some chapters use members.html instead
+            MEMBERS_HTML=$(gh api "repos/$REPO/contents/members.html?ref=$BRANCH" --jq '.content' | base64 -d 2>/dev/null || echo "")
+
+            if [ -z "$HTML" ] && [ -z "$MEMBERS_HTML" ]; then
               echo "  Skipped (no access)"
               continue
             fi
 
-            # Count all member-card divs (golden + alumni + challengers)
+            # Count member-card (Brazil, India, UK, USA, France, Chile, Peru, Colombia)
             CM=$(echo "$HTML" | grep -c 'class="member-card' || true)
+
+            # If no member-card found, count class="card" in members.html (Poland, Belgium, etc)
+            if [ "$CM" -eq 0 ] && [ -n "$MEMBERS_HTML" ]; then
+              CM=$(echo "$MEMBERS_HTML" | grep -c 'class="card"' || true)
+            fi
+
             CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger' || true)
             ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni' || true)
             
