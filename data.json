@@ -324,6 +324,24 @@
         "left": "59%"
       },
       "members": 1
+    },
+    {
+      "id": "australia",
+      "name": "Golden Jackets Australia",
+      "iso": "AUS",
+      "flag": "🇦🇺",
+      "code": "AU",
+      "domain": "",
+      "repo": "",
+      "branch": "",
+      "lead": "",
+      "founded": "2026",
+      "status": "negotiation",
+      "pin": {
+        "top": "72%",
+        "left": "86%"
+      },
+      "members": 1
     }
   ],
   "stats": {
