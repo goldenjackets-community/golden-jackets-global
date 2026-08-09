@@ -1,8 +1,9 @@
 name: Update Global Stats
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'
+  # CRON DISABLED — was overwriting manual stats when chapter deploys were broken
+  # schedule:
+  #   - cron: '0 */6 * * *'
   workflow_dispatch:
 
 permissions:
