@@ -2,7 +2,7 @@
 
 World map showing all active Golden Jackets chapters across 14 countries.
 
-**Live:** [global.goldenjacketsbrazil.com](https://global.goldenjacketsbrazil.com)
+**Live:** [goldenjackets.org](https://goldenjackets.org)
 
 ## Chapters (14 Active)
 
@@ -39,7 +39,7 @@ World map showing all active Golden Jackets chapters across 14 countries.
 ## Infrastructure
 
 - Hosted on GitHub Pages (branch: `master`)
-- Custom domain: `global.goldenjacketsbrazil.com`
+- Custom domain: `goldenjackets.org`
 - Data: `data.json` (chapter metadata, stats)
 
 ---
