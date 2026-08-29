@@ -36,10 +36,6 @@ nav .links a:hover { color: #FFD700; }
 .pin .name { font-size: 0.6em; color: #ccc; font-weight: 400; margin-top: 4px; white-space: nowrap; text-shadow: 0 0 5px #0a0a1a, 0 0 10px #0a0a1a; }
 .pin.planned .dot { opacity: 0.5; }
 .pin.planned .name { color: #fff; font-weight: 700; text-shadow: none; }
-  /* CR reinforced pin — bigger, glowing, stronger radar (country too small to fill) */
-  .pin.cr-lit .dot { font-size: 1.5em; filter: drop-shadow(0 0 8px #FFA500) drop-shadow(0 0 14px #FFD700); animation: blink 1.5s infinite; }
-  .pin.cr-lit .name { color: #FFD700; font-weight: 800; font-size: 0.7em; text-shadow: 0 0 6px #0a0a1a, 0 0 10px #0a0a1a; }
-  .pin.cr-lit .dot::after { border-color: #FFA500 !important; width: 26px !important; height: 26px !important; }
 .pin:not(.planned) .dot::after { content:""; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:20px; height:20px; border-radius:50%; border:2px solid #FFD700; animation:radar 2s infinite; opacity:0; }
 @keyframes radar { 0%{width:10px;height:10px;opacity:0.8;} 100%{width:40px;height:40px;opacity:0;} }
 .pin .tooltip { display:none; position:absolute; bottom:130%; left:50%; transform:translateX(-50%); background:#1a1a30; border:1px solid #FFD700; border-radius:8px; padding:8px 12px; font-size:0.7em; white-space:nowrap; color:#e0e0e0; z-index:10; pointer-events:none; }
@@ -362,7 +358,7 @@ countries.forEach(function(c){
     <div class="pin" style="top:57%;left:30%;"><div class="dot" style="animation:blink 2s infinite;">📍</div><div class="name">BO</div><div class="tooltip">🇧🇴 Bolivia · In Negotiation</div></div>
     <div class="pin" style="top:60%;left:86%;"><div class="dot" style="animation:blink 2s infinite;">📍</div><div class="name">AU</div><div class="tooltip">🇦🇺 Australia · In Negotiation</div></div>
     <div class="pin" style="top:22%;left:52%;"><div class="dot" style="animation:blink 2s infinite;">📍</div><div class="name">DE</div><div class="tooltip">🇩🇪 Germany · In Negotiation</div></div>
-    <div class="pin cr-lit" style="top:41%;left:26.5%;"><div class="dot">📍</div><div class="name">CR</div><div class="tooltip">🇨🇷 Costa Rica · In Negotiation · Chapter Lead: Gerardo Arroyo</div></div>
+    <div class="pin" style="top:41%;left:26.5%;"><div class="dot" style="animation:blink 2s infinite;">📍</div><div class="name">CR</div><div class="tooltip">🇨🇷 Costa Rica · In Negotiation · Chapter Lead: Gerardo Arroyo</div></div>
 
   </div>
 </div>
