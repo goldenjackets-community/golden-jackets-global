@@ -643,11 +643,12 @@ type();
 </div>
 <script>
 (function(){
-  var KEY='gj200-celebrated-v1';
   var params=new URLSearchParams(location.search);
   var force=params.has('celebrate')||location.hash==='#celebrate';
-  // Só mostra uma vez por visitante (a menos que ?celebrate force).
-  if(!force){ try{ if(localStorage.getItem(KEY)) return; }catch(e){} }
+  // Campanha "200 membros": mostra em TODA visita/F5 até a data de expiração.
+  // Depois disso o efeito para sozinho (a menos que ?celebrate force).
+  var CAMPAIGN_END=new Date('2026-09-13T23:59:59-03:00'); // 2 semanas (30/08 -> 13/09/2026)
+  if(!force && Date.now()>CAMPAIGN_END.getTime()) return;
 
   var overlay=document.getElementById('gj200-overlay');
   var canvas=document.getElementById('gj200-confetti');
@@ -711,7 +712,6 @@ type();
   function open(){
     overlay.classList.add('show');
     countUp(); fire();
-    try{localStorage.setItem(KEY,'1');}catch(e){}
     document.addEventListener('keydown',onKey);
   }
   function close(){
