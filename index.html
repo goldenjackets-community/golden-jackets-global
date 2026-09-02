@@ -645,10 +645,13 @@ type();
 (function(){
   var params=new URLSearchParams(location.search);
   var force=params.has('celebrate')||location.hash==='#celebrate';
+  // Modo TV/kiosk: alterna automaticamente entre mapa e celebração, em loop infinito.
+  // Ative com ?tv (ex.: goldenjackets.org/?tv) — ideal pra deixar rodando numa TV.
+  var TV=params.has('tv')||location.hash==='#tv';
   // Campanha "200 membros": mostra em TODA visita/F5 até a data de expiração.
-  // Depois disso o efeito para sozinho (a menos que ?celebrate force).
+  // Depois disso o efeito para sozinho (a menos que ?celebrate force ou modo ?tv).
   var CAMPAIGN_END=new Date('2026-09-13T23:59:59-03:00'); // 2 semanas (30/08 -> 13/09/2026)
-  if(!force && Date.now()>CAMPAIGN_END.getTime()) return;
+  if(!force && !TV && Date.now()>CAMPAIGN_END.getTime()) return;
 
   var overlay=document.getElementById('gj200-overlay');
   var canvas=document.getElementById('gj200-confetti');
@@ -713,11 +716,21 @@ type();
     overlay.classList.add('show');
     countUp(); fire();
     document.addEventListener('keydown',onKey);
+    if(TV){
+      // No modo TV, fecha sozinha depois de ~10s pra mostrar o mapa.
+      clearTimeout(window._gj200auto);
+      window._gj200auto=setTimeout(close,10000);
+    }
   }
   function close(){
     overlay.classList.remove('show');
     document.removeEventListener('keydown',onKey);
     setTimeout(function(){ if(raf)cancelAnimationFrame(raf); parts=[]; ctx.clearRect(0,0,canvas.width,canvas.height); },700);
+    if(TV){
+      // No modo TV, reabre depois de ~25s mostrando o mapa (loop infinito).
+      clearTimeout(window._gj200loop);
+      window._gj200loop=setTimeout(open,25000);
+    }
   }
   function onKey(e){ if(e.key==='Escape')close(); }
 
@@ -726,8 +739,10 @@ type();
 
   // Entra após o load + pequeno delay pra dar dramaticidade.
   window.addEventListener('load',function(){ setTimeout(open,900); });
-  // Auto-dismiss suave se o usuário não interagir.
-  setTimeout(function(){ if(overlay.classList.contains('show'))close(); }, 12000);
+  // Auto-dismiss suave se o usuário não interagir (só quando NÃO é modo TV — no TV o open() já agenda).
+  if(!TV){
+    setTimeout(function(){ if(overlay.classList.contains('show'))close(); }, 12000);
+  }
 })();
 </script>
 <!-- =================== END 200 MEMBERS MILESTONE CELEBRATION =================== -->
