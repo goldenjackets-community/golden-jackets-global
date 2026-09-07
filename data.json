@@ -16,7 +16,7 @@
         "top": "54%",
         "left": "35%"
       },
-      "members": 87
+      "members": 90
     },
     {
       "id": "poland",
@@ -160,7 +160,7 @@
         "top": "25%",
         "left": "22%"
       },
-      "members": 15
+      "members": 14
     },
     {
       "id": "israel",
@@ -380,7 +380,7 @@
     }
   ],
   "stats": {
-    "members": 200,
+    "members": 202,
     "certifications": "2140+",
     "active_chapters": 15,
     "countries": 21
