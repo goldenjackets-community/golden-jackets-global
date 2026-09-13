@@ -88,7 +88,7 @@
         "top": "32%",
         "left": "72%"
       },
-      "members": 43
+      "members": 45
     },
     {
       "id": "france",
@@ -380,10 +380,10 @@
     }
   ],
   "stats": {
-    "members": 207,
+    "members": 209,
     "certifications": "2140+",
     "active_chapters": 15,
     "countries": 21
   },
-  "last_updated": "2026-09-13T21:36:00Z"
+  "last_updated": "2026-09-13T21:42:00Z"
 }
