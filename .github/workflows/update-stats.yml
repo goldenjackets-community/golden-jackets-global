@@ -33,6 +33,7 @@ jobs:
           # is lower/zero), we KEEP the current data.json number for that chapter.
           # This is the guard that previously required the CRON to be disabled.
           CHANGED=0
+          TOTAL_CERTS=0
           while IFS='|' read -r ID REPO BRANCH; do
             [ -z "$REPO" ] && continue
             echo "Fetching $ID ($REPO@$BRANCH)..."
@@ -49,6 +50,21 @@ jobs:
               CM=$(echo "$MEMBERS_HTML" | grep -c 'class="card"' || true)
             fi
 
+            # ---- Certifications by member type (#43: distinguish Rising) ----
+            # Golden + Alumni = 12 certs each (fully certified).
+            # Challenger + Rising carry a real "N/12 Certifications" tag; sum the
+            # ACTUAL N instead of assuming a fixed multiplier.
+            RISING=$(echo "$HTML" | grep -c 'member-card rising' || true)
+            CHALLENGER=$(echo "$HTML" | grep -c 'member-card challenger' || true)
+            ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni' || true)
+            FULL=$(( CM - RISING - CHALLENGER - ALUMNI ))   # golden
+            [ "$FULL" -lt 0 ] && FULL=0
+            # Sum the real N from each "N/12 Certifications" tag (rising+challenger).
+            PARTIAL=$(echo "$HTML" | grep -oE '[0-9]+/12 Certifications' | grep -oE '^[0-9]+' | awk '{s+=$1} END{print s+0}')
+            CHAPTER_CERTS=$(( (FULL + ALUMNI) * 12 + PARTIAL ))
+            TOTAL_CERTS=$(( TOTAL_CERTS + CHAPTER_CERTS ))
+            echo "  $ID certs: golden/alumni=$((FULL+ALUMNI))x12 + rising/challenger real=$PARTIAL => $CHAPTER_CERTS"
+
             CURRENT=$(jq -r --arg id "$ID" '.chapters[] | select(.id==$id) | .members // 0' data.json)
             if [ "$CM" -gt "$CURRENT" ]; then
               echo "  $ID: $CURRENT -> $CM (updated)"
@@ -59,6 +75,17 @@ jobs:
               echo "  $ID: keeping $CURRENT (site=$CM, not higher)"
             fi
           done < <(jq -r '.chapters[] | select(.status=="active" and .repo!="") | .id + "|" + .repo + "|" + .branch' data.json)
+
+          # Certifications: never-decrease. The curated floor (stats.certifications,
+          # may be "NNNN+") wins if the freshly counted total is lower.
+          PREV_CERTS_NUM=$(echo "$PREV_CERTS" | grep -oE '^[0-9]+')
+          if [ "$TOTAL_CERTS" -gt "${PREV_CERTS_NUM:-0}" ]; then
+            NEW_CERTS="${TOTAL_CERTS}+"
+            echo "=== certs: $PREV_CERTS -> $NEW_CERTS (counted higher) ==="
+            jq --arg c "$NEW_CERTS" '.stats.certifications=$c' data.json > data_tmp.json && mv data_tmp.json data.json
+          else
+            echo "=== certs: keeping $PREV_CERTS (counted $TOTAL_CERTS is not higher) ==="
+          fi
 
           # Recompute ALL aggregates + rewrite every index.html counter from the
           # (now updated) per-chapter data via the single source-of-truth tool.
