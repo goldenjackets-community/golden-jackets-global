@@ -60,7 +60,9 @@ jobs:
             FULL=$(( CM - RISING - CHALLENGER - ALUMNI ))   # golden
             [ "$FULL" -lt 0 ] && FULL=0
             # Sum the real N from each "N/12 Certifications" tag (rising+challenger).
-            PARTIAL=$(echo "$HTML" | grep -oE '[0-9]+/12 Certifications' | grep -oE '^[0-9]+' | awk '{s+=$1} END{print s+0}')
+            # Both greps are guarded so a chapter with no rising/challenger cards
+            # (zero matches -> grep exit 1) doesn't trip `set -o pipefail`.
+            PARTIAL=$(echo "$HTML" | { grep -oE '[0-9]+/12 Certifications' || true; } | { grep -oE '^[0-9]+' || true; } | awk '{s+=$1} END{print s+0}')
             CHAPTER_CERTS=$(( (FULL + ALUMNI) * 12 + PARTIAL ))
             TOTAL_CERTS=$(( TOTAL_CERTS + CHAPTER_CERTS ))
             echo "  $ID certs: golden/alumni=$((FULL+ALUMNI))x12 + rising/challenger real=$PARTIAL => $CHAPTER_CERTS"
@@ -78,7 +80,7 @@ jobs:
 
           # Certifications: never-decrease. The curated floor (stats.certifications,
           # may be "NNNN+") wins if the freshly counted total is lower.
-          PREV_CERTS_NUM=$(echo "$PREV_CERTS" | grep -oE '^[0-9]+')
+          PREV_CERTS_NUM=$(echo "$PREV_CERTS" | grep -oE '^[0-9]+' || true)
           if [ "$TOTAL_CERTS" -gt "${PREV_CERTS_NUM:-0}" ]; then
             NEW_CERTS="${TOTAL_CERTS}+"
             echo "=== certs: $PREV_CERTS -> $NEW_CERTS (counted higher) ==="
