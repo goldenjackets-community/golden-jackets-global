@@ -188,7 +188,9 @@ def main(argv=None):
     stats, chapters = compute_stats(data)
 
     if args.write:
+        from datetime import datetime, timezone
         data['stats'] = stats
+        data['last_updated'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
         new_html = apply_to_html(html, stats, chapters)
         with open(args.data, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
