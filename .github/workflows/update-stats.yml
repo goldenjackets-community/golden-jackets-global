@@ -93,20 +93,12 @@ jobs:
             '.stats.members=$m | .stats.certifications=$c | .stats.active_chapters=$a | .stats.countries=$co | .last_updated=$date' \
             data.json > data_tmp.json && mv data_tmp.json data.json
 
-          # Update index.html counters
-          OLD_MEMBERS=$(grep -oP 'data-target="\K\d+(?=".*Members)' index.html | head -1)
-          OLD_CERTS=$(grep -oP 'data-target="\K\d+(?=".*Certifications)' index.html | head -1)
-
-          if [ -n "$OLD_MEMBERS" ]; then
-            sed -i "s/data-target=\"${OLD_MEMBERS}\"\(.*Members\)/data-target=\"${FINAL_MEMBERS}\"\1/" index.html
-            sed -i "s/🏆 ${OLD_MEMBERS} Members/🏆 ${FINAL_MEMBERS} Members/g" index.html
-            sed -i "s/${OLD_MEMBERS} members/${FINAL_MEMBERS} members/g" index.html
-          fi
-          if [ -n "$OLD_CERTS" ]; then
-            sed -i "s/data-target=\"${OLD_CERTS}\"\(.*Certifications\)/data-target=\"${FINAL_CERTS}\"\1/" index.html
-            sed -i "s/📜 ${OLD_CERTS}+/📜 ${FINAL_CERTS}+/g" index.html
-            sed -i "s/${OLD_CERTS}+ Certifications/${FINAL_CERTS}+ Certifications/g" index.html
-          fi
+          # Update ALL index.html counters from data.json via the single
+          # source-of-truth tool (covers hero, ticker, tooltips, meta desc,
+          # and per-chapter cards — fixes BUG-2 counter drift). Note: the tool
+          # recomputes stats.members/countries/active_chapters from the chapter
+          # list, so it uses the numbers we just wrote above.
+          python3 scripts/update_global_counters.py --write
 
           echo "=== Final: $FINAL_MEMBERS members, $FINAL_CERTS certs ==="
           cat data.json | jq '.stats'
