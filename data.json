@@ -16,7 +16,7 @@
         "top": "54%",
         "left": "35%"
       },
-      "members": 92
+      "members": 93
     },
     {
       "id": "poland",
@@ -34,7 +34,7 @@
         "top": "17%",
         "left": "55%"
       },
-      "members": 2
+      "members": 3
     },
     {
       "id": "uk",
@@ -88,7 +88,7 @@
         "top": "32%",
         "left": "72%"
       },
-      "members": 45
+      "members": 47
     },
     {
       "id": "france",
@@ -160,7 +160,7 @@
         "top": "25%",
         "left": "22%"
       },
-      "members": 21
+      "members": 22
     },
     {
       "id": "israel",
@@ -250,7 +250,7 @@
         "top": "46%",
         "left": "27%"
       },
-      "members": 13
+      "members": 14
     },
     {
       "id": "uae",
@@ -380,10 +380,10 @@
     }
   ],
   "stats": {
-    "members": 225,
+    "members": 231,
     "certifications": "2512+",
     "active_chapters": 15,
     "countries": 21
   },
-  "last_updated": "2026-09-16T09:25:00Z"
+  "last_updated": "2026-09-20T21:03:27Z"
 }
