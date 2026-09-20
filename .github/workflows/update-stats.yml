@@ -1,9 +1,11 @@
 name: Update Global Stats
 
 on:
-  # CRON DISABLED — was overwriting manual stats when chapter deploys were broken
-  # schedule:
-  #   - cron: '0 */6 * * *'
+  # Re-enabled (#41) with a per-chapter never-decrease guard + a global sanity
+  # check that aborts on a suspicious drop, so a broken chapter deploy can no
+  # longer overwrite good stats. Runs once a day; can also be run manually.
+  schedule:
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -19,89 +21,75 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TOTAL_MEMBERS=0
-          TOTAL_CERTS=0
-          ACTIVE=0
+          set -euo pipefail
+          cp data.json data.json.bak
 
-          REPOS=$(jq -r '.chapters[] | select(.status=="active" and .repo!="") | .repo + "|" + .branch' data.json)
+          # Snapshot current global totals for the safety check at the end.
+          PREV_MEMBERS=$(jq -r '.stats.members' data.json)
+          PREV_CERTS=$(jq -r '.stats.certifications' data.json)
 
-          for entry in $REPOS; do
-            REPO=$(echo "$entry" | cut -d'|' -f1)
-            BRANCH=$(echo "$entry" | cut -d'|' -f2)
-
-            echo "Fetching $REPO ($BRANCH)..."
+          # Count members per chapter from the LIVE chapter site and apply a
+          # per-chapter never-decrease: if a chapter deploy is broken (site count
+          # is lower/zero), we KEEP the current data.json number for that chapter.
+          # This is the guard that previously required the CRON to be disabled.
+          CHANGED=0
+          while IFS='|' read -r ID REPO BRANCH; do
+            [ -z "$REPO" ] && continue
+            echo "Fetching $ID ($REPO@$BRANCH)..."
             HTML=$(gh api "repos/$REPO/contents/index.html?ref=$BRANCH" --jq '.content' | base64 -d 2>/dev/null || echo "")
-
-            # Some chapters use members.html instead
             MEMBERS_HTML=$(gh api "repos/$REPO/contents/members.html?ref=$BRANCH" --jq '.content' | base64 -d 2>/dev/null || echo "")
 
             if [ -z "$HTML" ] && [ -z "$MEMBERS_HTML" ]; then
-              echo "  Skipped (no access)"
+              echo "  Skipped (no access) — keeping current count"
               continue
             fi
 
-            # Count member-card (Brazil, India, UK, USA, France, Chile, Peru, Colombia)
             CM=$(echo "$HTML" | grep -c 'class="member-card' || true)
-
-            # If no member-card found, count class="card" in members.html (Poland, Belgium, etc)
             if [ "$CM" -eq 0 ] && [ -n "$MEMBERS_HTML" ]; then
               CM=$(echo "$MEMBERS_HTML" | grep -c 'class="card"' || true)
             fi
 
-            CHALLENGERS=$(echo "$HTML" | grep -c 'member-card challenger' || true)
-            ALUMNI=$(echo "$HTML" | grep -c 'member-card alumni' || true)
-            
-            # Certifications: golden=12, challengers=10, alumni=12
-            GOLDEN=$((CM - CHALLENGERS - ALUMNI))
-            CC=$(( (GOLDEN * 12) + (CHALLENGERS * 10) + (ALUMNI * 12) ))
+            CURRENT=$(jq -r --arg id "$ID" '.chapters[] | select(.id==$id) | .members // 0' data.json)
+            if [ "$CM" -gt "$CURRENT" ]; then
+              echo "  $ID: $CURRENT -> $CM (updated)"
+              jq --arg id "$ID" --argjson n "$CM" \
+                '(.chapters[] | select(.id==$id) | .members) = $n' data.json > data_tmp.json && mv data_tmp.json data.json
+              CHANGED=1
+            else
+              echo "  $ID: keeping $CURRENT (site=$CM, not higher)"
+            fi
+          done < <(jq -r '.chapters[] | select(.status=="active" and .repo!="") | .id + "|" + .repo + "|" + .branch' data.json)
 
-            TOTAL_MEMBERS=$((TOTAL_MEMBERS + CM))
-            TOTAL_CERTS=$((TOTAL_CERTS + CC))
-            ACTIVE=$((ACTIVE + 1))
-
-            echo "  $CM members ($GOLDEN golden, $ALUMNI alumni, $CHALLENGERS challengers), $CC certs"
-          done
-
-          COUNTRIES=$(jq '.chapters | length' data.json)
-          echo "=== Counted: $TOTAL_MEMBERS members, $TOTAL_CERTS certs ==="
-
-          # SAFETY: Never decrease stats. Only update if higher than current.
-          CURRENT_MEMBERS=$(jq -r '.stats.members' data.json)
-          CURRENT_CERTS=$(jq -r '.stats.certifications' data.json)
-
-          if [ "$TOTAL_MEMBERS" -gt "$CURRENT_MEMBERS" ]; then
-            FINAL_MEMBERS=$TOTAL_MEMBERS
-          else
-            FINAL_MEMBERS=$CURRENT_MEMBERS
-            echo "⚠️ Keeping existing member count ($CURRENT_MEMBERS) — site count ($TOTAL_MEMBERS) is lower (some members not on site yet)"
-          fi
-
-          if [ "$TOTAL_CERTS" -gt "$CURRENT_CERTS" ]; then
-            FINAL_CERTS=$TOTAL_CERTS
-          else
-            FINAL_CERTS=$CURRENT_CERTS
-            echo "⚠️ Keeping existing cert count ($CURRENT_CERTS)"
-          fi
-
-          # Update data.json
-          jq \
-            --argjson m "$FINAL_MEMBERS" \
-            --argjson c "$FINAL_CERTS" \
-            --argjson a "$ACTIVE" \
-            --argjson co "$COUNTRIES" \
-            --arg date "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-            '.stats.members=$m | .stats.certifications=$c | .stats.active_chapters=$a | .stats.countries=$co | .last_updated=$date' \
-            data.json > data_tmp.json && mv data_tmp.json data.json
-
-          # Update ALL index.html counters from data.json via the single
-          # source-of-truth tool (covers hero, ticker, tooltips, meta desc,
-          # and per-chapter cards — fixes BUG-2 counter drift). Note: the tool
-          # recomputes stats.members/countries/active_chapters from the chapter
-          # list, so it uses the numbers we just wrote above.
+          # Recompute ALL aggregates + rewrite every index.html counter from the
+          # (now updated) per-chapter data via the single source-of-truth tool.
           python3 scripts/update_global_counters.py --write
 
-          echo "=== Final: $FINAL_MEMBERS members, $FINAL_CERTS certs ==="
-          cat data.json | jq '.stats'
+          # ----- GLOBAL SAFETY CHECK (never-decrease + sanity) -----
+          NEW_MEMBERS=$(jq -r '.stats.members' data.json)
+          echo "=== members: $PREV_MEMBERS -> $NEW_MEMBERS ==="
+
+          # 1) Never-decrease on the global total (belt-and-suspenders on top of
+          #    the per-chapter guard).
+          # 2) Sanity: refuse a suspicious drop (>10%) that would indicate a
+          #    systemic fetch failure rather than real data.
+          if [ "$NEW_MEMBERS" -lt "$PREV_MEMBERS" ]; then
+            THRESHOLD=$(( PREV_MEMBERS - (PREV_MEMBERS / 10) ))
+            echo "::warning::New member total ($NEW_MEMBERS) is lower than current ($PREV_MEMBERS)."
+            if [ "$NEW_MEMBERS" -lt "$THRESHOLD" ]; then
+              echo "::error::Refusing to commit: drop below 90% of current ($THRESHOLD). Likely a broken chapter deploy or fetch failure. Reverting."
+              mv data.json.bak data.json
+              git checkout -- index.html 2>/dev/null || true
+              exit 1
+            fi
+            echo "Drop is within tolerance; reverting to previous total to honor never-decrease."
+            mv data.json.bak data.json
+            python3 scripts/update_global_counters.py --write
+          else
+            rm -f data.json.bak
+          fi
+
+          echo "=== Final stats ==="
+          jq '.stats' data.json
 
       - name: Commit if changed
         run: |
