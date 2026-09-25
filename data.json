@@ -52,7 +52,7 @@
         "top": "16%",
         "left": "49%"
       },
-      "members": 16
+      "members": 17
     },
     {
       "id": "chile",
@@ -380,10 +380,10 @@
     }
   ],
   "stats": {
-    "members": 232,
-    "certifications": "2694+",
+    "members": 233,
+    "certifications": "2706+",
     "active_chapters": 15,
     "countries": 21
   },
-  "last_updated": "2026-09-24T11:25:22Z"
+  "last_updated": "2026-09-25T11:31:24Z"
 }
