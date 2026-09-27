@@ -40,7 +40,13 @@
         "top": "17%",
         "left": "55%"
       },
-      "members": 3
+      "members": 3,
+      "breakdown": {
+        "golden": 3,
+        "alumni": 0,
+        "challenger": 0,
+        "rising": 0
+      }
     },
     {
       "id": "uk",
@@ -58,7 +64,13 @@
         "top": "16%",
         "left": "49%"
       },
-      "members": 17
+      "members": 17,
+      "breakdown": {
+        "golden": 13,
+        "alumni": 4,
+        "challenger": 0,
+        "rising": 0
+      }
     },
     {
       "id": "chile",
@@ -76,7 +88,13 @@
         "top": "72%",
         "left": "30%"
       },
-      "members": 7
+      "members": 7,
+      "breakdown": {
+        "golden": 6,
+        "alumni": 0,
+        "challenger": 1,
+        "rising": 0
+      }
     },
     {
       "id": "india",
@@ -94,7 +112,13 @@
         "top": "32%",
         "left": "72%"
       },
-      "members": 49
+      "members": 50,
+      "breakdown": {
+        "golden": 46,
+        "alumni": 2,
+        "challenger": 1,
+        "rising": 1
+      }
     },
     {
       "id": "france",
@@ -112,7 +136,13 @@
         "top": "19%",
         "left": "50%"
       },
-      "members": 7
+      "members": 7,
+      "breakdown": {
+        "golden": 6,
+        "alumni": 0,
+        "challenger": 1,
+        "rising": 0
+      }
     },
     {
       "id": "italy",
@@ -130,7 +160,13 @@
         "top": "20%",
         "left": "53%"
       },
-      "members": 1
+      "members": 1,
+      "breakdown": {
+        "golden": 1,
+        "alumni": 0,
+        "challenger": 0,
+        "rising": 0
+      }
     },
     {
       "id": "peru",
@@ -148,7 +184,13 @@
         "top": "60%",
         "left": "29%"
       },
-      "members": 6
+      "members": 6,
+      "breakdown": {
+        "golden": 5,
+        "alumni": 0,
+        "challenger": 1,
+        "rising": 0
+      }
     },
     {
       "id": "usa",
@@ -166,7 +208,13 @@
         "top": "25%",
         "left": "22%"
       },
-      "members": 22
+      "members": 22,
+      "breakdown": {
+        "golden": 19,
+        "alumni": 2,
+        "challenger": 1,
+        "rising": 0
+      }
     },
     {
       "id": "israel",
@@ -184,7 +232,13 @@
         "top": "28%",
         "left": "60%"
       },
-      "members": 6
+      "members": 6,
+      "breakdown": {
+        "golden": 6,
+        "alumni": 0,
+        "challenger": 0,
+        "rising": 0
+      }
     },
     {
       "id": "belarus",
@@ -202,7 +256,13 @@
         "top": "15%",
         "left": "57%"
       },
-      "members": 1
+      "members": 1,
+      "breakdown": {
+        "golden": 1,
+        "alumni": 0,
+        "challenger": 0,
+        "rising": 0
+      }
     },
     {
       "id": "ecuador",
@@ -220,7 +280,13 @@
         "top": "50%",
         "left": "27%"
       },
-      "members": 1
+      "members": 1,
+      "breakdown": {
+        "golden": 1,
+        "alumni": 0,
+        "challenger": 0,
+        "rising": 0
+      }
     },
     {
       "id": "japan",
@@ -256,7 +322,13 @@
         "top": "46%",
         "left": "27%"
       },
-      "members": 15
+      "members": 15,
+      "breakdown": {
+        "golden": 12,
+        "alumni": 0,
+        "challenger": 3,
+        "rising": 0
+      }
     },
     {
       "id": "uae",
@@ -386,10 +458,10 @@
     }
   ],
   "stats": {
-    "members": 230,
-    "certifications": "2706+",
+    "members": 231,
+    "certifications": "2754+",
     "active_chapters": 15,
     "countries": 21
   },
-  "last_updated": "2026-09-27T17:39:28Z"
+  "last_updated": "2026-09-27T17:46:15Z"
 }
