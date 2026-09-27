@@ -64,6 +64,13 @@ jobs:
             # (zero matches -> grep exit 1) doesn't trip `set -o pipefail`.
             PARTIAL=$(echo "$HTML" | { grep -oE '[0-9]+/12 Certifications' || true; } | { grep -oE '^[0-9]+' || true; } | awk '{s+=$1} END{print s+0}')
             CHAPTER_CERTS=$(( (FULL + ALUMNI) * 12 + PARTIAL ))
+
+            # Save per-category breakdown so the global cards can show
+            # "N golden · N alumni · N challengers · N rising" (auto, #timeline+breakdown).
+            jq --arg id "$ID" --argjson g "$FULL" --argjson a "$ALUMNI" \
+               --argjson c "$CHALLENGER" --argjson r "$RISING" \
+               '(.chapters[] | select(.id==$id) | .breakdown) = {golden:$g, alumni:$a, challenger:$c, rising:$r}' \
+               data.json > data_tmp.json && mv data_tmp.json data.json
             TOTAL_CERTS=$(( TOTAL_CERTS + CHAPTER_CERTS ))
             echo "  $ID certs: golden/alumni=$((FULL+ALUMNI))x12 + rising/challenger real=$PARTIAL => $CHAPTER_CERTS"
 

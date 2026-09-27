@@ -16,7 +16,13 @@
         "top": "54%",
         "left": "35%"
       },
-      "members": 93
+      "members": 93,
+      "breakdown": {
+        "golden": 57,
+        "alumni": 2,
+        "challenger": 19,
+        "rising": 15
+      }
     },
     {
       "id": "poland",
@@ -383,7 +389,7 @@
     "members": 230,
     "certifications": "2706+",
     "active_chapters": 15,
-    "countries": 15
+    "countries": 21
   },
-  "last_updated": "2026-09-27T17:22:00Z"
+  "last_updated": "2026-09-27T17:39:28Z"
 }

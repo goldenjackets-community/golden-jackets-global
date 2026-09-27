@@ -34,8 +34,12 @@ def compute_stats(data):
     if isinstance(chapters, dict):
         chapters = list(chapters.values())
 
-    total_members = sum(int(c.get('members') or 0) for c in chapters)
-    # countries = distinct chapters that have any presence (all listed chapters)
+    # Members count ONLY active chapters. Countries "in negotiation" (no site,
+    # no real chapter) appear on the map for reach but do NOT count toward the
+    # member total — this is the community's agreed counting rule.
+    total_members = sum(int(c.get('members') or 0)
+                        for c in chapters if c.get('status') == 'active')
+    # countries = every listed chapter (active + in-negotiation) — map reach.
     countries = len(chapters)
     active_chapters = sum(1 for c in chapters if c.get('status') == 'active')
     # certifications is curated (not derivable) — keep whatever is in stats
@@ -142,11 +146,49 @@ def apply_to_html(html, stats, chapters):
         name = c.get('name', '')
         if not name or m <= 0:
             continue
-        # match the card's <h3>...NAME...</h3><p>NN member(s)
+        # match the card's <h3>...NAME...</h3><p>NN member(s)  (simple format only)
         pat = re.compile(
             r'(<h3>[^<]*' + re.escape(name) + r'[^<]*</h3>\s*<p>)\d+\s+members?'
         )
         html = pat.sub(lambda mm, mm_n=m: f'{mm.group(1)}{mm_n} {_fmt_member_word(mm_n)}', html)
+
+    # 6) chapter cards WITH category breakdown:
+    #    <h3>...NAME...</h3><p>NN golden · NN alumni · NN challengers · NN rising · ...>
+    #    Only rewritten when the chapter has a "breakdown" dict in data.json AND
+    #    the card already uses the breakdown format (so we never force it on cards
+    #    that use the simple "NN members" format).
+    for c in chapters:
+        bd = c.get('breakdown')
+        name = c.get('name', '')
+        if not bd or not name:
+            continue
+        parts = []
+        for key, word in (('golden', 'golden'), ('alumni', 'alumni'),
+                          ('challenger', 'challengers'), ('rising', 'rising')):
+            parts.append(f"{int(bd.get(key) or 0)} {word}")
+        breakdown_str = ' · '.join(parts)
+        # match "<h3>...NAME...</h3><p>NN golden · ... rising" (the detailed format)
+        pat = re.compile(
+            r'(<h3>[^<]*' + re.escape(name) + r'[^<]*</h3>\s*<p>)'
+            r'\d+\s+golden\s*·\s*\d+\s+alumni\s*·\s*\d+\s+challengers?\s*·\s*\d+\s+rising'
+        )
+        html = pat.sub(lambda mm, s=breakdown_str: f'{mm.group(1)}{s}', html)
+
+    # 7) Recent Activity — keep the most-recent entry in sync with the live total.
+    #    The topmost activity line carries a data-auto="recent-total" marker so we
+    #    rewrite ONLY that line (historical milestones below are never touched).
+    from datetime import datetime, timezone
+    today = datetime.now(timezone.utc).strftime('%b %d').replace(' 0', ' ')
+    recent_pat = re.compile(
+        r'(<p[^>]*data-auto="recent-total"[^>]*>).*?(</p>)', re.S
+    )
+    if recent_pat.search(html):
+        new_line = (
+            '🌍 <span style="color:#e0e0e0;">'
+            f'{members} members · {active} active chapters · {countries} countries</span> '
+            f'<span style="color:#555;">· {today}</span>'
+        )
+        html = recent_pat.sub(lambda m: m.group(1) + new_line + m.group(2), html, count=1)
 
     return html
 
