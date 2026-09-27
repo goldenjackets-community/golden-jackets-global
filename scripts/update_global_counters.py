@@ -107,7 +107,7 @@ def apply_to_html(html, stats, chapters):
     spans = _ticker_spans()
     doubled = ''.join(spans + spans)  # doubled for seamless scroll loop
     html = re.sub(
-        r'(<div class="ticker-content">).*?(</div>)',
+        r'(<div class="ticker-content"[^>]*>).*?(</div>)',
         lambda m: m.group(1) + doubled + m.group(2),
         html, count=1, flags=re.S,
     )

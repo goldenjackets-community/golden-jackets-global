@@ -28,7 +28,7 @@ DATA = {
 HTML = """<html><head>
 <meta name="description" content="... 999 members, 1 active chapters, 2 countries.">
 </head><body>
-<div class="ticker"><div class="ticker-content"><span>old</span></div></div>
+<div class="ticker"><div class="ticker-content" id="ticker-content"><span>old</span></div></div>
 <div class="stat"><div class="num" data-target="999">0</div><div class="label">Members</div></div>
 <div class="stat"><div class="num" data-target="2">0</div><div class="label">Countries</div></div>
 <div class="stat"><div class="num" data-target="1">0</div><div class="label">Active Chapters</div></div>
