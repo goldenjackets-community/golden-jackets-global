@@ -3,9 +3,9 @@ name: Update Global Stats
 on:
   # Re-enabled (#41) with a per-chapter never-decrease guard + a global sanity
   # check that aborts on a suspicious drop, so a broken chapter deploy can no
-  # longer overwrite good stats. Runs once a day; can also be run manually.
+  # longer overwrite good stats. Runs every 6 hours; can also be run manually.
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 permissions:
