@@ -208,9 +208,9 @@
         "top": "25%",
         "left": "22%"
       },
-      "members": 22,
+      "members": 23,
       "breakdown": {
-        "golden": 19,
+        "golden": 20,
         "alumni": 2,
         "challenger": 1,
         "rising": 0
@@ -458,10 +458,10 @@
     }
   ],
   "stats": {
-    "members": 233,
-    "certifications": "2790+",
+    "members": 234,
+    "certifications": "2802+",
     "active_chapters": 15,
     "countries": 21
   },
-  "last_updated": "2026-10-05T13:06:02Z"
+  "last_updated": "2026-10-05T23:30:06Z"
 }
