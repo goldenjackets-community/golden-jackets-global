@@ -16,12 +16,12 @@
         "top": "54%",
         "left": "35%"
       },
-      "members": 93,
+      "members": 95,
       "breakdown": {
-        "golden": 61,
+        "golden": 62,
         "alumni": 2,
         "challenger": 15,
-        "rising": 15
+        "rising": 16
       }
     },
     {
@@ -136,9 +136,9 @@
         "top": "19%",
         "left": "50%"
       },
-      "members": 7,
+      "members": 9,
       "breakdown": {
-        "golden": 6,
+        "golden": 8,
         "alumni": 0,
         "challenger": 1,
         "rising": 0
@@ -232,11 +232,11 @@
         "top": "28%",
         "left": "60%"
       },
-      "members": 9,
+      "members": 10,
       "breakdown": {
         "golden": 8,
         "alumni": 0,
-        "challenger": 1,
+        "challenger": 2,
         "rising": 0
       }
     },
@@ -458,10 +458,10 @@
     }
   ],
   "stats": {
-    "members": 239,
-    "certifications": "2890+",
+    "members": 244,
+    "certifications": "2943+",
     "active_chapters": 15,
     "countries": 21
   },
-  "last_updated": "2026-10-18T10:07:56Z"
+  "last_updated": "2026-10-18T14:10:28Z"
 }
