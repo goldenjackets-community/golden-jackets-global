@@ -75,13 +75,19 @@ jobs:
             echo "  $ID certs: golden/alumni=$((FULL+ALUMNI))x12 + rising/challenger real=$PARTIAL => $CHAPTER_CERTS"
 
             CURRENT=$(jq -r --arg id "$ID" '.chapters[] | select(.id==$id) | .members // 0' data.json)
-            if [ "$CM" -gt "$CURRENT" ]; then
+            # The chapter site is the source of truth. We only reach this point
+            # when the HTML fetch SUCCEEDED (empty fetch does `continue` above),
+            # so trust the live count in BOTH directions — up (new member) and
+            # down (member removed/left). A broken deploy would have failed the
+            # fetch and been skipped; a systemic failure is still caught by the
+            # global >10% sanity abort at the end.
+            if [ "$CM" -ne "$CURRENT" ]; then
               echo "  $ID: $CURRENT -> $CM (updated)"
               jq --arg id "$ID" --argjson n "$CM" \
                 '(.chapters[] | select(.id==$id) | .members) = $n' data.json > data_tmp.json && mv data_tmp.json data.json
               CHANGED=1
             else
-              echo "  $ID: keeping $CURRENT (site=$CM, not higher)"
+              echo "  $ID: unchanged ($CURRENT)"
             fi
           done < <(jq -r '.chapters[] | select(.status=="active" and .repo!="") | .id + "|" + .repo + "|" + .branch' data.json)
 
@@ -100,26 +106,29 @@ jobs:
           # (now updated) per-chapter data via the single source-of-truth tool.
           python3 scripts/update_global_counters.py --write
 
-          # ----- GLOBAL SAFETY CHECK (never-decrease + sanity) -----
+          # ----- GLOBAL SAFETY CHECK (sanity, not never-decrease) -----
           NEW_MEMBERS=$(jq -r '.stats.members' data.json)
           echo "=== members: $PREV_MEMBERS -> $NEW_MEMBERS ==="
 
-          # 1) Never-decrease on the global total (belt-and-suspenders on top of
-          #    the per-chapter guard).
-          # 2) Sanity: refuse a suspicious drop (>10%) that would indicate a
-          #    systemic fetch failure rather than real data.
+          # The per-chapter counts are now trusted in both directions (a member
+          # who left/was removed legitimately lowers the total). We no longer
+          # force never-decrease, which previously froze the number forever and
+          # required manual data.json edits. We KEEP a sanity guard: a drop of
+          # more than 10% almost certainly means a systemic fetch failure or a
+          # broken deploy across chapters, so we abort and keep the known-good
+          # numbers rather than publishing a bogus crash.
           if [ "$NEW_MEMBERS" -lt "$PREV_MEMBERS" ]; then
             THRESHOLD=$(( PREV_MEMBERS - (PREV_MEMBERS / 10) ))
-            echo "::warning::New member total ($NEW_MEMBERS) is lower than current ($PREV_MEMBERS)."
+            DROP=$(( PREV_MEMBERS - NEW_MEMBERS ))
+            echo "::warning::Member total dropped by $DROP ($PREV_MEMBERS -> $NEW_MEMBERS)."
             if [ "$NEW_MEMBERS" -lt "$THRESHOLD" ]; then
               echo "::error::Refusing to commit: drop below 90% of current ($THRESHOLD). Likely a broken chapter deploy or fetch failure. Reverting."
               mv data.json.bak data.json
               git checkout -- index.html 2>/dev/null || true
               exit 1
             fi
-            echo "Drop is within tolerance; reverting to previous total to honor never-decrease."
-            mv data.json.bak data.json
-            python3 scripts/update_global_counters.py --write
+            echo "Drop is within the 10% tolerance — treating as a legitimate change and committing."
+            rm -f data.json.bak
           else
             rm -f data.json.bak
           fi
