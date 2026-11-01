@@ -16,12 +16,12 @@
         "top": "54%",
         "left": "35%"
       },
-      "members": 96,
+      "members": 99,
       "breakdown": {
-        "golden": 62,
+        "golden": 65,
         "alumni": 2,
-        "challenger": 15,
-        "rising": 17
+        "challenger": 14,
+        "rising": 18
       }
     },
     {
@@ -184,9 +184,9 @@
         "top": "60%",
         "left": "29%"
       },
-      "members": 6,
+      "members": 7,
       "breakdown": {
-        "golden": 5,
+        "golden": 6,
         "alumni": 0,
         "challenger": 1,
         "rising": 0
@@ -458,10 +458,10 @@
     }
   ],
   "stats": {
-    "members": 250,
-    "certifications": "3025+",
+    "members": 254,
+    "certifications": "3081+",
     "active_chapters": 15,
     "countries": 21
   },
-  "last_updated": "2026-11-01T12:22:38Z"
+  "last_updated": "2026-11-01T21:30:35Z"
 }
